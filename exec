@@ -1,0 +1,2 @@
+#!/bin/sh
+`which php` "$(dirname $(which ${0}))/lib/exec.php" $@

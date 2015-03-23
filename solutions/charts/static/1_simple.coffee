@@ -1,0 +1,1 @@
+appers.solutions.chart.simple = {}

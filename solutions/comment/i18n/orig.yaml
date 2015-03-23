@@ -1,0 +1,22 @@
+locale: en
+translates:
+    'Enter your comment, please': 'Enter your comment, please'
+    'Your comment has been added': 'Your comment has been added'
+    Ok: Ok
+    'Are you really want to remove this comment?': 'Are you really want to remove this comment?'
+    'Are you really want mark this comment as spam?': 'Are you really want mark this comment as spam?'
+    'Are you sure you want to send a complaint to this comment?': 'Are you sure you want to send a complaint to this comment?'
+    'Comment has been marked as spam.': 'Comment has been marked as spam.'
+    'You already marked this comments as spam.': 'You already marked this comments as spam.'
+    'Your complaint has been accepted.': 'Your complaint has been accepted.'
+    'You already sent complaint this comment.': 'You already sent complaint this comment.'
+    'Login, please': 'Login, please'
+    'Comment has been deleted': 'Comment has been deleted'
+    Reply: Reply
+    Delete: Delete
+    Complaint: Complaint
+    Spam: Spam
+    'Write comment': 'Write comment'
+    Comment: Comment
+    Write: Write
+    Cancel: Cancel

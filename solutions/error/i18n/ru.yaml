@@ -1,0 +1,4 @@
+locale: ru
+translates:
+    'Error 404: Can''t find page.': 'Ошибка 404: Страница не найдена.'
+    'Error 404': 'Ошибка 404'

@@ -1,0 +1,54 @@
+locale: ru
+translates:
+    'Code is invalid': 'Код не верный'
+    'Enter email, please': 'Введите email, пожалуйста'
+    'Enter password, please': 'Введите пароль, пожалуйста'
+    'Email or password is incorrect': 'Email или пароль не верный'
+    'Email already exists': 'Email уже существует'
+    'Email is incorrect': 'Email не верный'
+    "Hi!\n\nThank you for registration.\nYour email: %s\nYour password: %s\n\n": "Привет!\n\nСпасибо за регистрацию.\nВаш email: %s\nВаш пароль: %s\n\n"
+    '<link>Click</link> for complete your registration.': '<link>Нажмите</link> для завершения регистрации.'
+    'Enter with': 'Войти через'
+    OR: ИЛИ
+    Email: Email
+    Password: Пароль
+    Login: 'Вход'
+    'Sign in': 'Вход'
+    Registration: 'Регистрация'
+    'Sign up': Зарегистрироваться
+    'Registration done. Check your mail for continue.': 'Вы успешно зарегистрированы. Вам отправлено електронное письмо с дальнейшими инструкциями'
+    'Recover password': 'Восстановить пароль'
+    'Recover code is incorrect': 'Код восстановления не корректен'
+    'New password has been sent to your mail': 'Новый пароль был выслан Вам на почту'
+    'Instructions has been sent to your mail.': 'Инструкция была отправлена Вам на почту.'
+    "Hi!\nYour new password: %s\n\n": "Привет!\nВаш новый пароль: %s\n\n"
+    'Recovering password': 'Восстановление пароля'
+    'You, or someone else try to recover password.': 'Вы, или кто-то другой пытался восстановить пароль.'
+    '<link>Click</link> for complete recovering.': '<link>Нажмите</link> для завершения восстановления.'
+    'Code is incorrect': 'Код не корректный'
+    'Email has been successfully changed': 'Email был успешно изменен'
+    'Please, enter new email': 'Пожалуйста, введите новый email'
+    'Check your old mail for continue email change': 'Проверьте Вашу старую почту для подтверждения смены почты'
+    '<link>Click</link> for confirm email change.': '<link>Нажмите</link> Для подтверждения смены почты.'
+    'Change email': 'Изменить email'
+    'Password has been successfully changed': 'Пароль был успешно изменен'
+    'Please, enter current password': 'Пожалуйста, введите Ваш старый пароль'
+    'Please, enter new password': 'Пожалуйста, введите новый пароль'
+    'Please, repeat new password': 'Пожалуйста, повторите новый пароль'
+    'Current password is incorrect': 'Старый пароль не верный'
+    'Repeat of new password is incorrect': 'Повторение нового пароля не верно'
+    'Check your mail for continue password change': 'Проверьте Вашу почту для продолжения смены пароля'
+    '<link>Click</link> for confirm password change.': '<link>Нажмите</link> для подтверждения смены пароля.'
+    'Change password': 'Изменить пароль'
+    'New email': 'Новый email'
+    Save: 'Сохранить'
+    'Current password': 'Текущий пароль'
+    'New password': 'Новый пароль'
+    'Repeat new password': 'Повторите новый пароль'
+    Hi!: Привет!
+    'You can:': 'Вы можете:'
+    'Please, enter new name': 'Пожалуйста, введите новое имя'
+    'Your name has been changed': 'Ваше имя было изменено'
+    Name: Имя
+    'Change name': 'Изменить имя'
+    Cancel: Отмена

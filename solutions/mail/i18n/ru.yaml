@@ -1,0 +1,7 @@
+locale: ru
+translates:
+    'This email was sent to %s.': 'Это сообщение было отправлено для %s.'
+    Unsubscribe: Отписаться
+    'You have been successfully unsubscribed. If you did this in error, you may re-subscribe by clicking the link below.': 'Вы были успешно отписаны от рассылки. Если вы это сделали по ошибке, и хотите включить подписку, вы можете это сделать, перейдя по ссылке ниже'
+    Re-subscribe: Подписаться
+    'You have been successfully re-subscribed.': 'Вы были успешно подписаны на рассылку.'

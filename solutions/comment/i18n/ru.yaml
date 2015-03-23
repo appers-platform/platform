@@ -1,0 +1,22 @@
+locale: ru
+translates:
+    'Enter your comment, please': 'Введите пожалуйста Ваш комментарий'
+    'Your comment has been added': 'Ваш комментарий был добавлен'
+    Ok: Ok
+    'Are you really want to remove this comment?': 'Вы действительно хотите удалить этот комментарий?'
+    'Are you really want mark this comment as spam?': 'Вы действительно хотите отметить этот комментарий как спам?'
+    'Are you sure you want to send a complaint to this comment?': 'Вы действительно хотите пожаловаться на этот комментарий?'
+    'Comment has been marked as spam.': 'Комментарий был отмечен как спам.'
+    'You already marked this comments as spam.': 'Вы уже отмечали этот комментарий как спам.'
+    'Your complaint has been accepted.': 'Ваша жалоба была отправлена.'
+    'You already sent complaint this comment.': 'Вы уже отправляли жалобу на этот комментарий.'
+    'Login, please': 'Войдите, пожалуйста'
+    'Comment has been deleted': 'Комментарий был удален'
+    Reply: Ответить
+    Delete: Удалить
+    Complaint: Пожаловаться
+    Spam: 'Отметить как спам'
+    'Write comment': 'Написать комментарий'
+    Comment: Комментарий
+    Write: Написать
+    Cancel: Отмена

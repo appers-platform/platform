@@ -1,0 +1,7 @@
+locale: en
+translates:
+    'This email was sent to %s.': 'This email was sent to %s.'
+    Unsubscribe: Unsubscribe
+    'You have been successfully unsubscribed. If you did this in error, you may re-subscribe by clicking the link below.': 'You have been successfully unsubscribed. If you did this in error, you may re-subscribe by clicking the link below.'
+    Re-subscribe: Re-subscribe
+    'You have been successfully re-subscribed.': 'You have been successfully re-subscribed.'

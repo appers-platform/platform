@@ -1,0 +1,6 @@
+/.idea
+.DS_Store
+/tasks/test.php
+/config/!parent.php
+/config/*
+/model/testModel.php

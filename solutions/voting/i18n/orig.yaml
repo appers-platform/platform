@@ -1,0 +1,6 @@
+locale: en
+translates:
+    'Login first, please.': 'Login first, please.'
+    'You already voted': 'You already voted'
+    '+1': '+1'
+    -1: '-1'

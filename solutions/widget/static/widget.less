@@ -1,0 +1,71 @@
+body.faded {
+	overflow: hidden;
+}
+
+#solution_widget {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 200;
+	overflow: auto;
+	display: block;
+	.form {
+		background: #fff;
+		border: 1px solid #cfcfcf;
+		border-radius: 4px;
+		visibility: visible;
+		position: absolute;
+		left: 50%;
+		top: -9999px;
+		bottom: auto;
+		right: auto;
+		width: 600px;
+		padding: 29px 29px 29px 29px;
+		z-index: 9999;
+		.ta-center { text-align: center; }
+		iframe.frame {
+			border: 0;
+		}
+	}
+	.close {
+		background: url('/solutions-public/widget/images/close.png') no-repeat;
+		width: 13px;
+		height: 13px;
+		overflow: hidden;
+		display: block;
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		cursor: pointer;
+	}
+	.buttons {
+		text-align: center;
+		button {
+			position: relative;
+			top: 10px;
+			margin: 0 5px;
+		}
+	}
+}
+
+#solution_widget_bg {
+	background-color: #222;
+	display: block;
+	opacity: 0.5;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	filter: alpha(opacity=50);
+	background-image: url('/solutions-public/widget/images/loader.gif');
+	background-repeat: no-repeat;
+	background-position: center center;
+	z-index: 100;
+}
+
+#solution_widget_bg.loaded {
+	background-image: none;
+}

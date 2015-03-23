@@ -1,0 +1,1 @@
+<h1 id="error"><?=__('Error 404: Can\'t find page.')?></h1>

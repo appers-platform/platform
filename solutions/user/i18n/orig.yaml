@@ -1,0 +1,54 @@
+locale: en
+translates:
+    'Code is invalid': 'Code is invalid'
+    'Enter email, please': 'Enter email, please'
+    'Enter password, please': 'Enter password, please'
+    'Email or password is incorrect': 'Email or password is incorrect'
+    'Email already exists': 'Email already exists'
+    'Email is incorrect': 'Email is incorrect'
+    "Hi!\n\nThank you for registration.\nYour email: %s\nYour password: %s\n\n": "Hi!\n\nThank you for registration.\nYour email: %s\nYour password: %s\n\n"
+    '<link>Click</link> for complete your registration.': '<link>Click</link> for complete your registration.'
+    'Enter with': 'Enter with'
+    OR: OR
+    Email: Email
+    Password: Password
+    Login: Login
+    'Sign in': 'Sign in'
+    Registration: Registration
+    'Sign up': 'Sign up'
+    'Registration done. Check your mail for continue.': 'Registration done. Check your mail for continue.'
+    'Recover password': 'Recover password'
+    'Recover code is incorrect': 'Recover code is incorrect'
+    'New password has been sent to your mail': 'New password has been sent to your mail'
+    'Instructions has been sent to your mail.': 'Instructions has been sent to your mail.'
+    "Hi!\nYour new password: %s\n\n": "Hi!\nYour new password: %s\n\n"
+    'Recovering password': 'Recovering password'
+    'You, or someone else try to recover password.': 'You, or someone else try to recover password.'
+    '<link>Click</link> for complete recovering.': '<link>Click</link> for complete recovering.'
+    'Code is incorrect': 'Code is incorrect'
+    'Email has been successfully changed': 'Email has been successfully changed'
+    'Please, enter new email': 'Please, enter new email'
+    'Check your old mail for continue email change': 'Check your old mail for continue email change'
+    '<link>Click</link> for confirm email change.': '<link>Click</link> for confirm email change.'
+    'Change email': 'Change email'
+    'Password has been successfully changed': 'Password has been successfully changed'
+    'Please, enter current password': 'Please, enter current password'
+    'Please, enter new password': 'Please, enter new password'
+    'Please, repeat new password': 'Please, repeat new password'
+    'Current password is incorrect': 'Current password is incorrect'
+    'Repeat of new password is incorrect': 'Repeat of new password is incorrect'
+    'Check your mail for continue password change': 'Check your mail for continue password change'
+    '<link>Click</link> for confirm password change.': '<link>Click</link> for confirm password change.'
+    'Change password': 'Change password'
+    'New email': 'New email'
+    Save: Save
+    'Current password': 'Current password'
+    'New password': 'New password'
+    'Repeat new password': 'Repeat new password'
+    Hi!: Hi!
+    'You can:': 'You can:'
+    'Please, enter new name': 'Please, enter new name'
+    'Your name has been changed': 'Your name has been changed'
+    Name: Name
+    'Change name': 'Change name'
+    Cancel: Cancel

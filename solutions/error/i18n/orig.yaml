@@ -1,0 +1,4 @@
+locale: en
+translates:
+    'Error 404: Can''t find page.': 'Error 404: Can''t find page.'
+    'Error 404': 'Error 404'

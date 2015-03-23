@@ -1,0 +1,4 @@
+<?
+return [
+	'FBJsSDKSolution'	=> [ 'enabled' => true ],
+];

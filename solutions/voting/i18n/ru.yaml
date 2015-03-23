@@ -1,0 +1,6 @@
+locale: ru
+translates:
+    'Login first, please.': 'Войдите, пожалуйста.'
+    'You already voted': 'Вы уже голосовали'
+    '+1': '+1'
+    -1: '-1'
