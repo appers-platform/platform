@@ -9,7 +9,8 @@ class badref extends solution {
 		'cenoval.ru',
 		'priceg.ru',
 		'darodar.com',
-		'o-o-6-o-o.com'
+		'o-o-6-o-o.com',
+		'simple-share-buttons.com'
 	];
 
 	static public function init() {
