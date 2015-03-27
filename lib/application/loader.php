@@ -6,6 +6,8 @@ class loader {
 	static protected $ext_autoload = [];
 	static protected $files_loaded = [];
 
+	static protected $directories = [ 'extLib', 'lib', 'solutions', 'tasks' ];
+
 	static protected function checkFile(SplFileInfo $file) {
 		if ($file->getExtension() != 'php')
 			return false;
@@ -34,19 +36,26 @@ class loader {
 		$class_map = [];
 		$files_list = [];
 
-		foreach([ROOT, PROJECT_ROOT] as $dir) {
-			$file_info = new SplFileInfo($dir);
-			$ri = new \RecursiveIteratorIterator(
-				new \RecursiveDirectoryIterator($file_info->getRealPath()),
-				\RecursiveIteratorIterator::SELF_FIRST
-			);
+		foreach([ROOT, PROJECT_ROOT] as $dir_path) {
+			foreach(self::$directories as $dir) {
+				$dir = $dir_path.'/'.$dir;
 
-			foreach ($ri as $file) {
-				if(!self::checkFile($file))
+				if(!is_dir($dir))
 					continue;
-				$files_list[] = str_replace('\\', '/', $file->getPathname());
-				foreach(self::getClasses( file_get_contents(str_replace('\\', '/', $file->getPathname())) ) as $class) {
-					$class_map[$class] = str_replace('\\', '/', $file->getPathname());
+
+				$file_info = new SplFileInfo($dir);
+				$ri = new \RecursiveIteratorIterator(
+					new \RecursiveDirectoryIterator($file_info->getRealPath()),
+					\RecursiveIteratorIterator::SELF_FIRST
+				);
+
+				foreach ($ri as $file) {
+					if(!self::checkFile($file))
+						continue;
+					$files_list[] = str_replace('\\', '/', $file->getPathname());
+					foreach(self::getClasses( file_get_contents(str_replace('\\', '/', $file->getPathname())) ) as $class) {
+						$class_map[$class] = str_replace('\\', '/', $file->getPathname());
+					}
 				}
 			}
 		}
