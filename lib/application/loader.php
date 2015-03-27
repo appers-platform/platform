@@ -6,7 +6,7 @@ class loader {
 	static protected $ext_autoload = [];
 	static protected $files_loaded = [];
 
-	static protected $directories = [ 'extLib', 'lib', 'solutions', 'tasks' ];
+	static protected $directories = [ 'extLib', 'lib', 'solutions', 'tasks', 'controller' ];
 
 	static protected function checkFile(SplFileInfo $file) {
 		if ($file->getExtension() != 'php')
