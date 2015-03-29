@@ -16,7 +16,7 @@ abstract class dbSql {
 	 * @param array $params
 	 * @return PDOStatement
 	 */
-	abstract public function directQuery($sql, array $params = []);
+	abstract public function directQuery($sql, array $params = [], $autocreate = true);
 
 	abstract public function getLastInsertId();
 
@@ -52,10 +52,13 @@ abstract class dbSql {
 		return $connections[$config_name];
 	}
 
-	public function query($sql, array $params = []) {
+	public function query($sql, array $params = [], $autocreate = true) {
 		try {
-			return $this->directQuery($sql, $params);
+			return $this->directQuery($sql, $params, $autocreate);
 		} catch (sqlException $e) {
+			if(!$autocreate)
+				throw $e;
+
 			if($e->getCode() == sqlException::CODE_TABLE_NF) {
 				$this->createTable($e->getData(), 'id');
 				return $this->query($sql, $params);

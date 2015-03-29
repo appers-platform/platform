@@ -11,7 +11,7 @@ class dbMysql extends dbSql {
 	 * @return PDOStatement
 	 * @throws Exception
 	 */
-	public function directQuery($sql, array $params = []) {
+	public function directQuery($sql, array $params = [], $autocreate = true) {
 		$query = $this->connection->prepare($sql);
 		$this->timer->start();
 
@@ -19,6 +19,10 @@ class dbMysql extends dbSql {
 			$result = $query->execute($params);
 			#print $sql; print_r($params);
 		} catch ( PDOException $e ) {
+			if(!$autocreate) {
+				throw $e;
+			}
+
 			if($e->getCode() == '42S02') {
 				$matches = [];
 				preg_match("/Table '[^\\.]+\\.([^\\']+)' doesn't exist/", $e->getMessage(), $matches);
