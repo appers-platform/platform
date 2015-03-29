@@ -24,7 +24,7 @@ class dbVertica extends dbSql {
 	 * @return PDOStatement
 	 * @throws Exception
 	 */
-	public function directQuery($sql, array $params = []) {
+	public function directQuery($sql, array $params = [], $autocreate = true) {
 		$query = $this->connection->prepare($sql);
 		$this->timer->start();
 		$result = $query->execute($params);
