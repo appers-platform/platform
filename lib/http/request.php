@@ -12,6 +12,10 @@ class request {
 		return (bool) $_SERVER['HTTP_X_REQUESTED_WITH'];
 	}
 
+	public static function isCLI() {
+		return (php_sapi_name() === 'cli');
+	}
+
 	static public function get($name, $default = null) {
 		return isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
 	}
