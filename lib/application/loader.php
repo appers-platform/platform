@@ -5,6 +5,7 @@ class loader {
 	static protected $ext_lib_len;
 	static protected $ext_autoload = [];
 	static protected $files_loaded = [];
+	static protected $map_generated = false;
 
 	static protected $directories = [ 'extLib', 'lib', 'solutions', 'tasks', 'controller' ];
 
@@ -32,6 +33,9 @@ class loader {
 	}
 
 	static public function generateCache() {
+		if(self::$map_generated)
+			return;
+		self::$map_generated = true;
 
 		$class_map = [];
 		$files_list = [];
@@ -74,17 +78,24 @@ class loader {
 
 		$files_list = [];
 
-		foreach([ROOT, PROJECT_ROOT] as $dir) {
-			$file_info = new SplFileInfo($dir);
-			$ri = new \RecursiveIteratorIterator(
-				new \RecursiveDirectoryIterator($file_info->getRealPath()),
-				\RecursiveIteratorIterator::SELF_FIRST
-			);
+		foreach([ROOT, PROJECT_ROOT] as $dir_path) {
+			foreach(self::$directories as $dir) {
+				$dir = $dir_path.'/'.$dir;
 
-			foreach ($ri as $file) {
-				if(!self::checkFile($file))
+				if(!is_dir($dir))
 					continue;
-				$files_list[] = str_replace('\\', '/', $file->getPathname());
+
+				$file_info = new SplFileInfo($dir);
+				$ri = new \RecursiveIteratorIterator(
+					new \RecursiveDirectoryIterator($file_info->getRealPath()),
+					\RecursiveIteratorIterator::SELF_FIRST
+				);
+
+				foreach ($ri as $file) {
+					if(!self::checkFile($file))
+						continue;
+					$files_list[] = str_replace('\\', '/', $file->getPathname());
+				}
 			}
 		}
 
@@ -162,10 +173,11 @@ class loader {
 		if(self::$cache === false && is_file(ROOT.'/cache/'.PROJECT.'-load.php')) {
 			self::$cache = require(ROOT . '/cache/'.PROJECT.'-load.php');
 		}
-		if(!is_array(self::$cache))
+		if(!is_array(self::$cache)) {
 			self::generateCache();
+		}
 
-		if(!isset(self::$cache[$class]) && self::getFilesListMd5() != self::$cache['$md5']) {
+		if(self::getFilesListMd5() != self::$cache['$md5'] && !isset(self::$cache[$class])) {
 			self::generateCache();
 		}
 
