@@ -8,5 +8,5 @@ dbMysql::getConnect();
 print "Time of connection: ".$timer."\n";
 $timer->reset();
 $timer->start();
-dbMysql::getConnect()->getRows("show tables;");
+print_r(dbMysql::getConnect()->getCols("show tables;"));
 print "Time of 'show talbes': ".$timer."\n";
