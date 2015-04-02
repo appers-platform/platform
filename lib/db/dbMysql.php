@@ -98,7 +98,7 @@ class dbMysql extends dbSql {
 			throw $e;
 		}
 
-		if($e = $this->connection->errorCode()) {
+		if((int)($e = $this->connection->errorCode())) {
 			$this->timer->stop();
 			throw new Exception(print_r($e, true));
 		}
