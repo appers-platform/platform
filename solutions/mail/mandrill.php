@@ -34,7 +34,7 @@ class mandrill extends mail {
 		];
 		
 		$response = self::getMandrillInstance()->messages->send($message);
-		\log::debug('Sending email to '.$receiver_email.' via mandrill: '.print_r($response, true));
+		\log::debug('Sending email to '.$receiver_email.' via mandrill('.self::getMandrillInstance()->apikey.'): '.print_r($response, true));
 		return ($response[0]['status'] == 'sent');
 	}
 }
