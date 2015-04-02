@@ -133,6 +133,7 @@ class cli {
 				}
 				$name = $file->getBasename('.php');
 				$path_name = substr(dirname($file->getPathname()), strlen($dir.'/tasks/'));
+				$path_name = str_replace('/', '::', $path_name);
 				if($path_name) $name = $path_name.'::'.$name;
 
 				$list[$prefix.$name] = $file->getPathname();
