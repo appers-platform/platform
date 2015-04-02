@@ -22,7 +22,7 @@ class cli {
 
 		$map = self::getTasksMap();
 		if(!$map[$task_name]) {
-			print "Task '{$task_name} not found.'";
+			print "Task '{$task_name}' not found.'";
 			if($with_wrap) ob_end_clean();
 			return;
 		}
@@ -48,7 +48,7 @@ class cli {
 		}
 
 		self::$unique_task_id = getmypid();
-		print 'Task "'.$task_name.' was launched'.".\n";
+		print 'Task "'.$task_name.'" was launched'.".\n";
 
 		self::execute($map[$task_name]);
 		
