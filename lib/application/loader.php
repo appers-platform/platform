@@ -2,10 +2,12 @@
 class loader {
 	static protected $cache = false;
 	static protected $files_list_md5 = false;
+	static protected $files_deep_md5 = false;
 	static protected $ext_lib_len;
 	static protected $ext_autoload = [];
 	static protected $files_loaded = [];
 	static protected $map_generated = false;
+	static protected $is_files_changed = null;
 
 	static protected $directories = [ 'extLib', 'lib', 'solutions', 'tasks', 'controller' ];
 
@@ -101,6 +103,53 @@ class loader {
 
 		self::$files_list_md5 = md5(serialize($files_list));
 		return self::$files_list_md5;
+	}
+
+	static public function getFilesDeepMd5() {
+		if(self::$files_deep_md5)
+			return self::$files_deep_md5;
+
+		$files_list = [];
+
+		foreach([ROOT, PROJECT_ROOT] as $dir_path) {
+			foreach(self::$directories as $dir) {
+				$dir = $dir_path.'/'.$dir;
+
+				if(!is_dir($dir))
+					continue;
+
+				$file_info = new SplFileInfo($dir);
+				$ri = new \RecursiveIteratorIterator(
+					new \RecursiveDirectoryIterator($file_info->getRealPath()),
+					\RecursiveIteratorIterator::SELF_FIRST
+				);
+
+				foreach ($ri as $file) {
+					if(!self::checkFile($file))
+						continue;
+					$files_list[md5(file_get_contents($file->getPathname()))] = str_replace('\\', '/', $file->getPathname());
+				}
+			}
+		}
+
+		self::$files_deep_md5 = md5(serialize($files_list));
+		return self::$files_deep_md5;
+	}
+
+	static public function isFilesChanged() {
+		if(self::$is_files_changed !== null)
+			return self::$is_files_changed;
+
+		if(is_file($file = ROOT.'/cache/'.PROJECT.'-deep-md5.txt')) {
+			if(file_get_contents($file) == self::getFilesDeepMd5()) {
+				self::$is_files_changed = false;
+				return false;
+			}
+		}
+
+		file_put_contents($file, self::getFilesDeepMd5());
+		self::$is_files_changed = true;
+		return true;
 	}
 
 	static public function getClassesList() {

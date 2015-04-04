@@ -96,4 +96,8 @@ class bg {
 			$queues = [];
 		return array_keys($queues);
 	}
+
+	static public function restartWorkers() {
+		cli::runBackgroundTask('sys::bgRestart', []);
+	}
 }

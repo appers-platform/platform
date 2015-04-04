@@ -12,4 +12,9 @@ define('EXEC_PATH', __FILE__);
 require ROOT.'/lib/application/loader.php';
 loader::init();
 config::init();
+if(config::get('restartWorkersOnChange')) {
+	if(loader::isFilesChanged()) {
+		bg::restartWorkers();
+	}
+}
 cli::run(array_slice($argv,1));

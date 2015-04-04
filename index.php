@@ -16,6 +16,11 @@ try {
 	require ROOT . '/lib/application/loader.php';
 	loader::init();
 	config::init();
+	if(config::get('restartWorkersOnChange')) {
+		if(loader::isFilesChanged()) {
+			bg::restartWorkers();
+		}
+	}
 	i18n::setLocale($_SERVER['A_LANGUAGE'] ?: config::get('defaultLocale'));
 	application::run($_SERVER['REQUEST_URI']);
 } catch (Exception $e) {
