@@ -5,4 +5,5 @@ interface storageDriver {
 	static public function syncPush($table, array $data);
 	static public function query($query);
 	static public function getNow();
+	static public function getRows( $params_sql, $table = null );
 }

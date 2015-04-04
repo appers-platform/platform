@@ -4,6 +4,7 @@ namespace solutions;
 use Exception;
 use mCache;
 use request;
+use bg;
 
 class utrack extends solution {
 	static protected $id = null;
@@ -46,9 +47,11 @@ class utrack extends solution {
 			self::$id = self::generateId();
 			self::setIdToCookie();
 		}
+
+		return self::$id;
 	}
 
-	static protected function getDriverClass() {
+	static public function getDriverClass() {
 		$driver_class = static::getConfig('driver');
 
 		if(!class_exists($driver_class))
@@ -60,15 +63,18 @@ class utrack extends solution {
 		return $driver_class;
 	}
 
-	static protected function push($table, $data, $sync = false) {
+	static public function push($table, $data, $sync = false) {
 		$driver_class = self::getDriverClass();
-
 		self::installTables($driver_class);
 
-		if($sync)
-			return $driver_class::syncPush($table, $data);
+		foreach($data as $k => $v) {
+			if(in_array($k, \solutions\utrack\cases::getTypes())) {
+				unset($data[$k]);
+				$data[$k.'_id'] = \solutions\utrack\cases::getId($k, $v);
+			}
+		}
 
-		return $driver_class::push($table, $data);
+		return $driver_class::syncPush('solutions_utrack_'.$table, $data);
 	}
 
 	static protected function getNow() {
@@ -76,7 +82,7 @@ class utrack extends solution {
 		return $driver_class::getNow();
 	}
 
-	static public function addData($key, $value, $source, $user_id = null) {
+	static public function addData($name, $value, $source = '', $user_id = null) {
 		if(!$user_id && request::isCLI())
 			throw new Exception('User ID is required');
 
@@ -84,12 +90,15 @@ class utrack extends solution {
 			$user_id = self::getId();
 		}
 
-		self::push('events', [
-			'user' => $user_id,
-			'name' => $name,
-			'value' => $value,
-			'source' => $source,
-			'ts' => self::getNow(),
+		$driver_class = self::getDriverClass();
+		bg::run([__CLASS__, 'push'], [
+			'data', [
+				'user' => $user_id,
+				'data_name' => $name,
+				'data_value' => $value,
+				'data_source' => $source,
+				'ts' => $driver_class::getNow(),
+			]
 		]);
 	}
 
@@ -101,20 +110,26 @@ class utrack extends solution {
 			$user_id = self::getId();
 		}
 
-		self::push('events', [
-			'user' => $user_id,
-			'event' => $name,
-			'value' => $value,
-			'ts' => self::getNow(),
+		$driver_class = self::getDriverClass();
+		bg::run([__CLASS__, 'push'], [
+			'events', [
+				'user' => $user_id,
+				'event_name' => $name,
+				'event_value' => $value,
+				'ts' => $driver_class::getNow(),
+			]
 		]);
 	}
 
 	static protected function installTables($driver_class) {
-		if(mCache::get($k = 'tables_installed'))
+		$driver_class = self::getDriverClass();
+		if(mCache::get($k = $driver_class.'_tables_installed'))
 			return;
 		mCache::set($k, true);
+
 		$sql = file_get_contents(dirname(__FILE__).'/data/'.str_replace('\\', '_', $driver_class).'.sql');
-		$driver_class = self::getDriverClass();
+
+		
 		$driver_class::query($sql);
 	}
 }

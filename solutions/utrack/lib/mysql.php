@@ -2,6 +2,7 @@
 namespace solutions\utrack;
 use bg;
 use dbMysql;
+use PDO;
 
 class mysql extends \solutions\solution implements storageDriver {
 	static public function push($table, array $data) {
@@ -9,8 +10,6 @@ class mysql extends \solutions\solution implements storageDriver {
 	}
 
 	static public function syncPush($table, array $data) {
-		$table = 'solutions_utrack_'.$table;
-
 		$values = [];
 		$keys = [];
 		foreach ( $data as $k => $v ) {
@@ -35,5 +34,9 @@ class mysql extends \solutions\solution implements storageDriver {
 
 	static public function getNow() {
 		return dbMysql::getConnect(static::getConfig('mysql_connection_name', false, null))->getNow();
+	}
+
+	static public function getRows( $params_sql, $table = null ) {
+		return dbMysql::getConnect()->getRows( $params_sql, $table );
 	}
 }
