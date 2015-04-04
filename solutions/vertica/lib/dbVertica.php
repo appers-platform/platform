@@ -16,7 +16,7 @@ class dbVertica extends dbSql {
 	 */
 	protected $connection;
 
-	protected $splitter = '';
+	protected $splitter = '"';
 
 	/**
 	 * @param string $sql
@@ -61,6 +61,7 @@ class dbVertica extends dbSql {
 		}
 
 		$attributes = [];
+		if ( isset($config['persist']) && $config['persist'] ) $attributes[PDO::ATTR_PERSISTENT] = true;
 		$attributes[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
 		$attributes[PDO::ATTR_EMULATE_PREPARES] = true;
 		#$attributes[PDO::ATTR_TIMEOUT] = -1;

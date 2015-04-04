@@ -1,6 +1,8 @@
 <?
 namespace solutions;
 use bg;
+use \solutions\vertica\dbVertica;
+use PDO;
 
 class vertica extends solution implements solutions\utrack\storageDriver {
 	static public function push($table, array $data) {
@@ -8,14 +10,18 @@ class vertica extends solution implements solutions\utrack\storageDriver {
 	}
 
 	static public function syncPush($table, array $data) {
-		\solutions\vertica\dbVertica::getConnect()->insert( $data, $table );
+		dbVertica::getConnect()->insert( $data, $table );
 	}
 
 	static public function query($query) {
-		\solutions\vertica\dbVertica::getConnect()->query($query);
+		dbVertica::getConnect()->query($query);
 	}
 
 	static public function getNow() {
-		return \solutions\vertica\dbVertica::getConnect()->getNow();
+		return dbVertica::getConnect()->getNow();
+	}
+
+	static public function getRows( $params_sql, $table = null ) {
+		return dbVertica::getConnect()->getRows( $params_sql, $table );
 	}
 }
