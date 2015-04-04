@@ -162,6 +162,9 @@ class cli {
 	}
 
 	static public function runBackgroundTask($task_name, array $arguments = [], $output = '/dev/null') {
+		if(!`php -v`)
+			throw new Exception("Something wrong when background php process is run");
+			
 		$command = self::getTaskCmd($task_name, $arguments);
 		$command .= ' toLog > '.$output.' 2>&1 &';
 		return `{$command}`;
