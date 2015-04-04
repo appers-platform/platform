@@ -3,8 +3,9 @@ namespace solutions;
 use bg;
 use \solutions\vertica\dbVertica;
 use PDO;
+use \solutions\utrack\storageDriver;
 
-class vertica extends solution implements solutions\utrack\storageDriver {
+class vertica extends solution implements storageDriver {
 	static public function push($table, array $data) {
 		bg::run([__CLASS__, 'syncPush'], [$table, $data]);
 	}
