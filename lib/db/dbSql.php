@@ -29,6 +29,13 @@ abstract class dbSql {
 
 	abstract protected function __construct($config_name, $without_select_db = false);
 
+	public function __get($k) {
+		if($k == 'splitter') {
+			return $this->splitter;
+		}
+		throw new Exception('Access to undefined property');
+	}
+
 	/**
 	 * @param string $config_name
 	 * @return dbSql
