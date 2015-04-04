@@ -43,7 +43,7 @@ class controller extends renderer {
 	}
 
 	public function render() {
-		$content = $this->renderFile(PROJECT_ROOT.$this->getView(), $this);
+		$content = $this->renderFile(PROJECT_ROOT.$this->getView(), $this, true);
 
 		if(request::getInt('_frame')) {
 			$this->wrappers_enabled = false;

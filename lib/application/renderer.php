@@ -1,8 +1,10 @@
 <?
 class renderer extends stdClass {
-	public function renderFile($file, $context) {
-		if(!is_file($file))
+	public function renderFile($file, $context, $silent = false) {
+		if(!is_file($file)) {
+			if($silent) return '';
 			throw new Exception('File "'.$file.'" not found.');
+		}
 
 		foreach($context as $k => $v)
 			$$k = $v;
