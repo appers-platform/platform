@@ -6,11 +6,13 @@ $confirm = \helper::decode(
 	\request::get('confirm'),
 	(string) \solutions\user::getSecret()
 );
-
-log::debug('confirm:src:'.\request::get('confirm'));
-log::debug('confirm:dec:'.$confirm);
 $model = userModel::getByEmail($confirm);
+
 if($model->getPrimaryId()) {
+	log::debug('confirm:src:'.\request::get('confirm'));
+	log::debug('confirm:dec:'.$confirm);
+	log::debug('confirm:pk:'.$model->getPrimaryId());
+
 	$url = \solutions\user::getAfterAuthUrl();
 	
 	if(!$model->is_confirmed) {
