@@ -7,7 +7,10 @@ $confirm = \helper::decode(
 	(string) \solutions\user::getSecret()
 );
 
-if($model = userModel::getByEmail($confirm)) {
+log::debug('confirm:src:'.\request::get('confirm'));
+log::debug('confirm:dec:'.$confirm);
+$model = userModel::getByEmail($confirm);
+if($model->getPrimaryId()) {
 	$url = \solutions\user::getAfterAuthUrl();
 	
 	if(!$model->is_confirmed) {
@@ -21,7 +24,7 @@ if($model = userModel::getByEmail($confirm)) {
 			$after_auth_model->delete();
 		}
 	}
-	log::debug('model-A:'.print_r($model, true));
+	
 	\solutions\user::setCurrent($model);
 	\response::redirect($url);
 } else {

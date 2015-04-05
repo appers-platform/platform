@@ -68,7 +68,6 @@ class user extends solution {
 	}
 
 	static public function setCurrent($user) {
-		log::debug('model-B:'.print_r($user, true));
 		if($user instanceof userModel) {
 			self::$user = $user;
 		} else if(is_numeric($user)) {
@@ -89,9 +88,6 @@ class user extends solution {
 		log::debug('setCurrent:getPrimaryId:'.self::$user->getPrimaryId());
 
 		$cookie_id = \helper::encode((int) self::$user->getPrimaryId(), static::getSecret().'_cookie');
-
-		log::debug('setCurrent:secret:'.static::getSecret());
-		log::debug('setCurrent:cookie_id:'.$cookie_id);
 
 		if(\cookie::get( 'id' ) != $cookie_id) {
 			\cookie::set( 'id', $cookie_id );
