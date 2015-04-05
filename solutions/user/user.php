@@ -22,7 +22,7 @@ class user extends solution {
 		if(self::$user === null) {
 			if($user_id = (int) \session::get('id')) {
 				self::$user = new userModel($user_id);
-			} else if($user_id = (int) \helper::decode(\cookie::get('id'), self::getConfig('secret').'_cookie')) {
+			} else if($user_id = (int) \helper::decode(\cookie::get('id'), static::getSecret().'_cookie')) {
 				self::$user = new userModel($user_id);
 			}
 		}
@@ -84,7 +84,7 @@ class user extends solution {
 			\session::set('id', self::$user->getPrimaryId());
 		}
 
-		$cookie_id = \helper::encode((int) self::$user->getPrimaryId(), self::getConfig('secret').'_cookie');
+		$cookie_id = \helper::encode((int) self::$user->getPrimaryId(), static::getSecret().'_cookie');
 		if(\cookie::get( 'id' ) != $cookie_id) {
 			\cookie::set( 'id', $cookie_id );
 		}
