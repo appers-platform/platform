@@ -68,6 +68,7 @@ class user extends solution {
 	}
 
 	static public function setCurrent($user) {
+		log::debug('model-B:'.print_r($user, true));
 		if($user instanceof userModel) {
 			self::$user = $user;
 		} else if(is_numeric($user)) {

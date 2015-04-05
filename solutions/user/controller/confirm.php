@@ -12,9 +12,7 @@ if($model = userModel::getByEmail($confirm)) {
 	
 	if(!$model->is_confirmed) {
 		$model->is_confirmed = 1;
-		log::debug('model:'.print_r($model, true));
 		$model->save();
-		log::debug('model:'.print_r($model, true));
 
 		$after_auth_model = new userAuthModel();
 		$after_auth_model->user_id = $model->getId();
@@ -23,6 +21,7 @@ if($model = userModel::getByEmail($confirm)) {
 			$after_auth_model->delete();
 		}
 	}
+	log::debug('model-A:'.print_r($model, true));
 	\solutions\user::setCurrent($model);
 	\response::redirect($url);
 } else {
