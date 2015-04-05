@@ -10,11 +10,11 @@ $confirm = \helper::decode(
 if($model = userModel::getByEmail($confirm)) {
 	$url = \solutions\user::getAfterAuthUrl();
 	
-	log::debug('model:'.print_r($model, true));
-
 	if(!$model->is_confirmed) {
 		$model->is_confirmed = 1;
+		log::debug('model:'.print_r($model, true));
 		$model->save();
+		log::debug('model:'.print_r($model, true));
 
 		$after_auth_model = new userAuthModel();
 		$after_auth_model->user_id = $model->getId();
