@@ -81,8 +81,6 @@ class user extends solution {
 			throw new \Exception('Unknown type');
 		}
 
-		log::debug('setCurrent:'.print_r(self::$user, true));
-
 		if(\session::get('id') != self::$user->getPrimaryId()) {
 			\session::set('id', self::$user->getPrimaryId());
 		}

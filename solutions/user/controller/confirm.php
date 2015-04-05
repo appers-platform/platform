@@ -8,6 +8,9 @@ $confirm = \helper::decode(
 
 if($model = userModel::getByEmail($confirm)) {
 	$url = \solutions\user::getAfterAuthUrl();
+	
+	log::debug('model:'.print_r($model, true));
+
 	if(!$model->is_confirmed) {
 		$model->is_confirmed = 1;
 		$model->save();
