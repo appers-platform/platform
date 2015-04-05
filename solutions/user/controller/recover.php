@@ -5,7 +5,7 @@ class recover_solutionController extends parentController {
 	public function get() {
 		if($recover = \request::get('recover')) {
 			$this->setView('message');
-			$code = \helper::decode($recover, (string) self::getConfig('secret'));
+			$code = \helper::decode($recover, (string) \solutions\user::getSecret());
 			if(!$code) {
 				$this->message = __('Recover code is incorrect');
 				return;
@@ -65,7 +65,7 @@ Your new password: %s
 	}
 
 	static public function sendRecoverMail(userModel $user) {
-		$recover = \helper::encode($user->email.'|'.$user->password, (string) self::getConfig('secret'));
+		$recover = \helper::encode($user->email.'|'.$user->password, (string) \solutions\user::getSecret());
 		$url = 'http://'.\request::getHost().self::getUrl('recover').'?recover='.urlencode($recover);
 		$mail_content = __('You, or someone else try to recover password.');
 		$mail_content .= "\n";

@@ -14,7 +14,7 @@ class email_solutionController extends parentController {
 	public function get() {
 		if($update = \request::get('update')) {
 			$this->setView('message');
-			$code = \helper::decode($update, (string) self::getConfig('secret'));
+			$code = \helper::decode($update, (string) \solutions\user::getSecret());
 
 			if(!$code) {
 				$this->message = __('Code is incorrect');
@@ -58,7 +58,7 @@ class email_solutionController extends parentController {
 
 	static public function sendContinueMail(userModel $user, $new_email) {
 		$data = $user->email.'|'.$user->password.'|'.$new_email;
-		$update = \helper::encode($data, (string) self::getConfig('secret'));
+		$update = \helper::encode($data, (string) \solutions\user::getSecret());
 		$url = 'http://'.\request::getHost().self::getUrl('email').'?update='.urlencode($update);
 		$mail_content = __('<link>Click</link> for confirm email change.');
 		$mail_content = placeholer::link($mail_content, $url);

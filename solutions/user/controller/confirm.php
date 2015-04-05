@@ -3,7 +3,7 @@ namespace solutions\user;
 
 $confirm = \helper::decode(
 	\request::get('confirm'),
-	(string) $this->getConfig('secret')
+	(string) \solutions\user::getSecret()
 );
 
 if($model = userModel::getByEmail($confirm)) {

@@ -29,7 +29,7 @@ Your password: %s
 ', $user->email, $plain_password);
 
 		if(!$user->is_confirmed) {
-			$confirm = \helper::encode($user->email, (string) self::getConfig('secret'));
+			$confirm = \helper::encode($user->email, (string) \solutions\user::getSecret());
 			$url = 'http://'.\request::getHost().self::getUrl('confirm').'?confirm='.urlencode($confirm);
 
 			$mail_content .= __('<link>Click</link> for complete your registration.');
