@@ -2,8 +2,6 @@
 return [
 	'css' => ['formClass' => 'col-xs-6 col-md-4'],
 
-	'secret' => '(74997s(&(&&^%$%^&',
-
 	'oauth_mail_ru' => [
 		'id'			=> 0,
 		'private_key' 	=> 'your_private_key',

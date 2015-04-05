@@ -84,7 +84,7 @@ class user extends solution {
 			\session::set('id', self::$user->getPrimaryId());
 		}
 
-		$cookie_id = \helper::encode(self::$user->getPrimaryId(), self::getConfig('secret').'_cookie');
+		$cookie_id = \helper::encode((int) self::$user->getPrimaryId(), self::getConfig('secret').'_cookie');
 		if(\cookie::get( 'id' ) != $cookie_id) {
 			\cookie::set( 'id', $cookie_id );
 		}
