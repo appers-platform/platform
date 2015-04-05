@@ -80,11 +80,19 @@ class user extends solution {
 			throw new \Exception('Unknown type');
 		}
 
+		log::debug('setCurrent:'.print_r(self::$user, true));
+
 		if(\session::get('id') != self::$user->getPrimaryId()) {
 			\session::set('id', self::$user->getPrimaryId());
 		}
 
+		log::debug('setCurrent:getPrimaryId:'.self::$user->getPrimaryId());
+
 		$cookie_id = \helper::encode((int) self::$user->getPrimaryId(), static::getSecret().'_cookie');
+
+		log::debug('setCurrent:secret:'.static::getSecret());
+		log::debug('setCurrent:cookie_id:'.$cookie_id);
+
 		if(\cookie::get( 'id' ) != $cookie_id) {
 			\cookie::set( 'id', $cookie_id );
 		}
