@@ -8,7 +8,7 @@ class log {
 			$current_log_level = $classname::getConfig('log_level', false, LOG_LEVEL_ERROR);
 			if(!$current_log_level)
 				$current_log_level = config::get('log_level', LOG_LEVEL_ERROR);
-			$prefix = '('.$caller.') ';
+			$prefix .= '('.$caller.') ';
 		} else {
 			$current_log_level = config::get('log_level', LOG_LEVEL_ERROR);
 		}
