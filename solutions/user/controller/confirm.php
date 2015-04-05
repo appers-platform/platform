@@ -1,5 +1,6 @@
 <?
 namespace solutions\user;
+use \log;
 
 $confirm = \helper::decode(
 	\request::get('confirm'),
