@@ -1,6 +1,7 @@
 <?
 namespace solutions;
-use solutions\user\userModel;
+use \solutions\user\userModel;
+use \log;
 
 class user extends solution {
 	const ENABLING_REQUIRED = true;
