@@ -52,12 +52,12 @@ abstract class model {
 	public function save() {
 		if(!$this->_id)
 			throw new Exception('Model is not associated with row');
-
+		log::debug('model:save:1'.$this);
 		$data = [];
 		foreach($this->_modified_fields as $field) {
 			$data[$field] = $this->_values[$field];
 		}
-
+		log::debug('model:save:2'.$this);
 		$connector = static::db_class;
 		$connector::getConnect(static::db_connection)->update(
 			$data,
@@ -65,6 +65,7 @@ abstract class model {
 			static::getTable()
 		);
 
+		log::debug('model:save:3'.$this);
 		if(isset(static::$_loaded_elements[$this->_id])) {
 			if(is_array(static::$_loaded_elements[$this->_id])) {
 				foreach(static::$_loaded_elements[$this->_id] as $element) {
@@ -73,6 +74,7 @@ abstract class model {
 				}
 			}
 		}
+		log::debug('model:save:4'.$this);
 	}
 
 	public function insert() {

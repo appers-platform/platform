@@ -17,7 +17,9 @@ if($model->getPrimaryId()) {
 	
 	if(!$model->is_confirmed) {
 		$model->is_confirmed = 1;
+		log::debug('confirm:pk2:'.$model->getPrimaryId());
 		$model->save();
+		log::debug('confirm:pk3:'.$model->getPrimaryId());
 
 		$after_auth_model = new userAuthModel();
 		$after_auth_model->user_id = $model->getId();
