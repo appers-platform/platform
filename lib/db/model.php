@@ -52,7 +52,7 @@ abstract class model {
 	public function save() {
 		if(!$this->_id)
 			throw new Exception('Model is not associated with row');
-		log::debug('model:save:1'.$this);
+		log::debug('model:save:1'.print_r($this, true));
 		$data = [];
 		foreach($this->_modified_fields as $field) {
 			$data[$field] = $this->_values[$field];
