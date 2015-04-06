@@ -57,7 +57,7 @@ abstract class model {
 		foreach($this->_modified_fields as $field) {
 			$data[$field] = $this->_values[$field];
 		}
-		log::debug('model:save:2'.$this);
+		log::debug('model:save:2'.print_r($this, true));
 		$connector = static::db_class;
 		$connector::getConnect(static::db_connection)->update(
 			$data,
@@ -74,7 +74,7 @@ abstract class model {
 				}
 			}
 		}
-		log::debug('model:save:4'.$this);
+		log::debug('model:save:4'.print_r($this, true));
 	}
 
 	public function insert() {
