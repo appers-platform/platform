@@ -65,7 +65,7 @@ abstract class model {
 			static::getTable()
 		);
 
-		log::debug('model:save:3'.$this);
+		log::debug('model:save:3'.print_r($this, true));
 		if(isset(static::$_loaded_elements[$this->_id])) {
 			if(is_array(static::$_loaded_elements[$this->_id])) {
 				foreach(static::$_loaded_elements[$this->_id] as $element) {
