@@ -74,7 +74,7 @@ class utrack extends solution {
 	}
 
 	static public function push($table, $data, $sync = false) {
-		log::debug('push:'.print_r(func_get_args(), true));
+		log::debug(__METHOD__.':'.print_r(func_get_args(), true));
 
 		$driver_class = self::getDriverClass();
 		self::installTables($driver_class);
@@ -115,7 +115,7 @@ class utrack extends solution {
 	}
 
 	static public function trackEvent($name, $value = null, $user_id = null) {
-		log::debug('trackEvent:'.print_r(func_get_args(), true));
+		log::debug(__METHOD__.':'.print_r(func_get_args(), true));
 
 		if(!$user_id && request::isCLI())
 			throw new Exception('User ID is required');

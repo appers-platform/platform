@@ -7,10 +7,12 @@ use \solutions\utrack\storageDriver;
 
 class vertica extends solution implements storageDriver {
 	static public function push($table, array $data) {
+		log::debug(__METHOD__.':'.print_r(func_get_args(), true));
 		bg::run([__CLASS__, 'syncPush'], [$table, $data]);
 	}
 
 	static public function syncPush($table, array $data) {
+		log::debug(__METHOD__.':'.print_r(func_get_args(), true));
 		dbVertica::getConnect()->insert( $data, $table );
 	}
 
