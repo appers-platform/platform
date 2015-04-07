@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `solutions_utrack_data` (
   `ts` datetime DEFAULT NULL,
   `data_source_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user` (`user`,`data_id`)
+  KEY `user` (`user`,`data_name_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `solutions_utrack_events` (
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `solutions_utrack_events` (
   `event_value_id` int(11),
   `ts` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user` (`user`,`event_id`)
+  KEY `user` (`user`,`event_name_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

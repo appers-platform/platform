@@ -5,11 +5,13 @@ use Exception;
 use mCache;
 use request;
 use bg;
+use log;
 
 class utrack extends solution {
 	static protected $id = null;
+	static protected $page_tracked = false;
 
-/*
+
 	static public function init() {
 		if(parent::init()) {
 			\event::addCallback('afterControllerRender', [__CLASS__, '_trackRender']);
@@ -17,11 +19,19 @@ class utrack extends solution {
 	}
 
 	static public function _trackRender() {
-		$id = self::getId();
-		// ???
-
+		if(static::getConfig('tackPages', false)) {
+			self::trackPageview();
+		}
 	}
-*/
+
+	static public function trackPageview($page = null, $content = null) {
+		if(self::$page_tracked)
+			return ;
+		self::$page_tracked = true;
+		if(!$page)
+			$page = request::getUri();
+		self::trackEvent('pageview', $page.'#'.$content);
+	}
 
 	static protected function getIdFromCookie() {
 		$id = \cookie::get('id');
@@ -123,12 +133,11 @@ class utrack extends solution {
 
 	static protected function installTables($driver_class) {
 		$driver_class = self::getDriverClass();
-		if(mCache::get($k = $driver_class.'_tables_installed'))
+		if(mCache::get($k = $driver_class.'@@@@tables_installed'))
 			return;
 		mCache::set($k, true);
 
 		$sql = file_get_contents(dirname(__FILE__).'/data/'.str_replace('\\', '_', $driver_class).'.sql');
-
 		
 		$driver_class::query($sql);
 	}
