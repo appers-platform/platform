@@ -4,6 +4,7 @@ use bg;
 use \solutions\vertica\dbVertica;
 use PDO;
 use \solutions\utrack\storageDriver;
+use log;
 
 class vertica extends solution implements storageDriver {
 	static public function push($table, array $data) {
