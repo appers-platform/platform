@@ -29,6 +29,7 @@ if($model->getPrimaryId()) {
 		}
 	}
 	
+	log::debug('confirm:pk4:'.$model->getPrimaryId());
 	\solutions\user::setCurrent($model);
 	\response::redirect($url);
 } else {

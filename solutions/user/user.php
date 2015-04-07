@@ -68,10 +68,13 @@ class user extends solution {
 	}
 
 	static public function setCurrent($user) {
+		log::debug('setCurrent:getPrimaryId1:'.$user->getPrimaryId());
 		if($user instanceof userModel) {
 			self::$user = $user;
+			log::debug('setCurrent:getPrimaryId2:'.self::$user->getPrimaryId());
 		} else if(is_numeric($user)) {
 			self::$user = new userModel($user);
+			log::debug('setCurrent:getPrimaryId3:'.self::$user->getPrimaryId());
 		} else if(is_null($user)) {
 			self::$user = null;
 			\session::delete('id');
