@@ -10,10 +10,11 @@ abstract class model {
 	private $_modified_fields = [];
 	private $_values = [];
 
-	static protected $_loaded_elements = [];
+	static private $_loaded_elements = [];
 
 	public function __construct($id = 0) {
 		$this->_id = $id;
+		self::$_loaded_elements[get_called_class()] = [];
 	}
 
 	private function _load() {
@@ -25,9 +26,9 @@ abstract class model {
 		$this->_values = $connector::getConnect(static::db_connection)->
 			getRow([static::db_PK => $this->_id], static::getTable());
 
-		if(!isset(static::$_loaded_elements[$this->_id]))
-			static::$_loaded_elements[$this->_id] = [];
-		static::$_loaded_elements[$this->_id][] = $this;
+		if(!isset(self::$_loaded_elements[get_called_class()][$this->_id]))
+			self::$_loaded_elements[get_called_class()][$this->_id] = [];
+		self::$_loaded_elements[get_called_class()][$this->_id][] = $this;
 
 		$this->_id = $this->_values[$this->getPK()];
 	}
@@ -63,9 +64,9 @@ abstract class model {
 			static::getTable()
 		);
 
-		if(isset(static::$_loaded_elements[$this->_id])) {
-			if(is_array(static::$_loaded_elements[$this->_id])) {
-				foreach(static::$_loaded_elements[$this->_id] as $element) {
+		if(isset(self::$_loaded_elements[get_called_class()][$this->_id])) {
+			if(is_array(self::$_loaded_elements[get_called_class()][$this->_id])) {
+				foreach(self::$_loaded_elements[get_called_class()][$this->_id] as $element) {
 					$element->_modified_fields = [];
 					$element->_loaded = true;
 				}
@@ -83,9 +84,9 @@ abstract class model {
 			insert(array_merge($this->_values, [static::db_PK => 0]), static::getTable());
 		$this->_loaded = true;
 
-		if(!isset(static::$_loaded_elements[$this->_id]))
-			static::$_loaded_elements[$this->_id] = [];
-		static::$_loaded_elements[$this->_id][] = $this;
+		if(!isset(self::$_loaded_elements[get_called_class()][$this->_id]))
+			self::$_loaded_elements[get_called_class()][$this->_id] = [];
+		self::$_loaded_elements[get_called_class()][$this->_id][] = $this;
 
 		return $this->_id;
 	}
@@ -153,8 +154,8 @@ abstract class model {
 		$connector::getConnect(static::db_connection)->
 			delete([static::db_PK => $this->_id], static::getTable());
 
-		if(is_array(static::$_loaded_elements[$this->_id])) {
-			foreach(static::$_loaded_elements[$this->_id] as $element) {
+		if(is_array(self::$_loaded_elements[get_called_class()][$this->_id])) {
+			foreach(self::$_loaded_elements[get_called_class()][$this->_id] as $element) {
 				$element->_id = 0;
 				$element->_values = [];
 				$element->_loaded = false;
