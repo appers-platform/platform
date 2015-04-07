@@ -16,8 +16,8 @@ class dbMysql extends dbSql {
 		$this->timer->start();
 
 		try {
-			$result = $query->execute($params);
 			#print $sql; print_r($params);
+			$result = $query->execute($params);
 		} catch ( PDOException $e ) {
 			if(!$autocreate) {
 				throw $e;
