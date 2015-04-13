@@ -22,15 +22,46 @@ abstract class model {
 		if(!$this->_id) return;
 		$this->_loaded = true;
 
-		$connector = static::db_class;
-		$this->_values = $connector::getConnect(static::db_connection)->
-			getRow([static::db_PK => $this->_id], static::getTable());
+		if(!$this->_loadCache()) {
+			$connector = static::db_class;
+			$this->_values = $connector::getConnect(static::db_connection)->
+				getRow([static::db_PK => $this->_id], static::getTable());
+			$this->_saveCache();
+		}
 
 		if(!isset(self::$_loaded_elements[get_called_class()][$this->_id]))
 			self::$_loaded_elements[get_called_class()][$this->_id] = [];
 		self::$_loaded_elements[get_called_class()][$this->_id][] = $this;
 
 		$this->_id = $this->_values[$this->getPK()];
+	}
+
+	private function _loadCache() {
+		$cache = mCache::get('MD_'.get_called_class().$this->_id);
+		if(is_array($cache)) {
+			$this->_values = $cache;
+			return true;
+		}
+		return false;
+	}
+
+	private function _saveCache() {
+		if(!$this->_id)
+			return false;
+
+		if(!$element->_loaded)
+			return false;
+
+		mCache::set('MD_'.get_called_class().$this->_id, $this->_values);
+		return true;
+	}
+
+	private function _deleteCache() {
+		if(!$this->_id)
+			return false;
+
+		mCache::delete('MD_'.get_called_class().$this->_id, $this->_values);
+		return true;
 	}
 
 	static public function getPK() {
@@ -64,6 +95,8 @@ abstract class model {
 			static::getTable()
 		);
 
+		$this->_saveCache();
+
 		if(isset(self::$_loaded_elements[get_called_class()][$this->_id])) {
 			if(is_array(self::$_loaded_elements[get_called_class()][$this->_id])) {
 				foreach(self::$_loaded_elements[get_called_class()][$this->_id] as $element) {
@@ -87,6 +120,8 @@ abstract class model {
 		if(!isset(self::$_loaded_elements[get_called_class()][$this->_id]))
 			self::$_loaded_elements[get_called_class()][$this->_id] = [];
 		self::$_loaded_elements[get_called_class()][$this->_id][] = $this;
+
+		$this->_saveCache();
 
 		return $this->_id;
 	}
@@ -153,6 +188,8 @@ abstract class model {
 		$connector = static::db_class;
 		$connector::getConnect(static::db_connection)->
 			delete([static::db_PK => $this->_id], static::getTable());
+
+		$this->_deleteCache();
 
 		if(is_array(self::$_loaded_elements[get_called_class()][$this->_id])) {
 			foreach(self::$_loaded_elements[get_called_class()][$this->_id] as $element) {
