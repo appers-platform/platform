@@ -4,6 +4,7 @@ namespace solutions;
 use Exception;
 use mCache;
 use request;
+use session;
 use bg;
 use log;
 
@@ -30,7 +31,13 @@ class utrack extends solution {
 		self::$page_tracked = true;
 		if(!$page)
 			$page = request::getUri();
-		self::trackEvent('pageview', $page.'#'.$content);
+
+		self::trackEvent('pageview', [
+			'url'		=> $page,
+			'content'	=> $content,
+			'referal'	=> request::getReferer(),
+			'session'	=> session::getid()
+		]);
 	}
 
 	static protected function getIdFromCookie() {
@@ -102,6 +109,10 @@ class utrack extends solution {
 			$user_id = self::getId();
 		}
 
+		if(!is_string($value) && !is_numeric($value)) {
+			$value = json_encode($value);
+		}
+
 		$driver_class = self::getDriverClass();
 		bg::run([__CLASS__, 'push'], [
 			'data', [
@@ -116,6 +127,10 @@ class utrack extends solution {
 
 	static public function trackEvent($name, $value = null, $user_id = null) {
 		log::debug(__METHOD__.':'.print_r(func_get_args(), true));
+
+		if(!is_string($value) && !is_numeric($value)) {
+			$value = json_encode($value);
+		}
 
 		if(!$user_id && request::isCLI())
 			throw new Exception('User ID is required');
