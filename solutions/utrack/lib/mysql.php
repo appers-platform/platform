@@ -3,6 +3,7 @@ namespace solutions\utrack;
 use bg;
 use dbMysql;
 use PDO;
+use log;
 
 class mysql extends \solutions\solution implements storageDriver {
 	static public function push($table, array $data) {

@@ -151,10 +151,14 @@ class utrack extends solution {
 	}
 
 	static protected function installTables($driver_class) {
+		log::debug(__METHOD__.':1');
+
 		$driver_class = self::getDriverClass();
-		if(mCache::get($k = $driver_class.'@@@@tables_installed'))
+		if(mCache::get($k = $driver_class.'?tables_installed'))
 			return;
 		mCache::set($k, true);
+
+		log::debug(__METHOD__.':2');
 
 		$sql = file_get_contents(dirname(__FILE__).'/data/'.str_replace('\\', '_', $driver_class).'.sql');
 		

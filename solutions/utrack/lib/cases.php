@@ -5,9 +5,7 @@ class cases {
 	static protected $types = [
 		'data_source',
 		'data_name',
-		'data_value',
-		'event_name',
-		'event_value'
+		'event_name'
 	];
 	static public $types_cache = [];
 
