@@ -41,6 +41,14 @@ class session extends singleton implements kvStorage {
 		return self::instance()->_getAll();
 	}
 
+	private function _getId() {
+		return session_id();
+	}
+
+	public static function getId() {
+		return self::instance()->_getId();
+	}
+
 	private function _getAll() {
 		return $_SESSION;
 	}
