@@ -18,6 +18,7 @@ class login_solutionController extends parentController {
 			$this->message = __('Enter password, please');
 		} else if(!$user = userModel::getByEmail($this->value_email)) {
 			$this->message = __('Email or password is incorrect');
+			$this->show_recover_link = true;
 		} else if($user->password != md5($password)){
 			$this->message = __('Email or password is incorrect');
 			$this->show_recover_link = true;

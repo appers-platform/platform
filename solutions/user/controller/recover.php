@@ -36,7 +36,7 @@ class recover_solutionController extends parentController {
 		if(!$this->value_email = \request::get('email')) {
 			$this->message = __('Enter email, please');
 		} else if(!$user = userModel::getByEmail($this->value_email)) {
-			$this->message = __('Email or password is incorrect');
+			$this->message = __('Email is incorrect');
 		} else {
 			self::sendRecoverMail($user);
 			$this->message = __('Instructions has been sent to your mail.');
