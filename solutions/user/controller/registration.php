@@ -21,12 +21,20 @@ class registration_solutionController extends parentController {
 				\log::debug('Creating user...');
 				$user = new userModel();
 				$user->email = $this->value_email;
-				$user = self::register($user);
+				$user = $this->register($user);
+
+				if(!($after_auth_url = \request::get('after_auth_url'))) {
+					$after_auth_url = \solutions\user::getAfterAuthUrl();
+				}
 
 				$user_auth = new userAuthModel();
-				$user_auth->after_auth_url = \solutions\user::getAfterAuthUrl();
+				$user_auth->after_auth_url = $after_auth_url;
 				$user_auth->user_id = $user->getId();
 				$user_auth->store();
+
+				if($redirect = \request::get('redirect')) {
+					\response::redirectTop($redirect);
+				}
 
 				$this->setView('registrationDone');
 				if(\request::isFrame()) {

@@ -17,30 +17,16 @@ class parentController extends \solutionController {
 		\response::redirect(\solutions\user::getAfterAuthUrl());
 	}
 
-	static public function register(userModel $user) {
+	public function register(userModel $user) {
 		$plain_password = \helper::generatePassword();
 
-		$mail_content = __('Hi!
-
-Thank you for registration.
-Your email: %s
-Your password: %s
-
-', $user->email, $plain_password);
-
+		$confirmation_url = false;
 		if(!$user->is_confirmed) {
 			$confirm = \helper::encode($user->email, (string) \solutions\user::getSecret());
-			$url = 'http://'.\request::getHost().self::getUrl('confirm').'?confirm='.urlencode($confirm);
-
-			$mail_content .= __('<link>Click</link> for complete your registration.');
-			$mail_content = \solutions\placeholer::link($mail_content, $url);
+			$confirmation_url = 'http://'.\request::getHost().self::getUrl('confirm').'?confirm='.urlencode($confirm);
 		}
 
-		\solutions\mail::send(
-			$user->email,
-			__('Registration'),
-			nl2br($mail_content)
-		);
+		$this->sendEmail($user->email, $plain_password, $confirmation_url);
 
 		if(userModel::getByEmail($user->email)) {
 			throw new \Exception('How it possible?!');
@@ -50,6 +36,23 @@ Your password: %s
 		$user->insert();
 
 		return $user;
+	}
+
+	public function sendEmail($email, $password, $confirmation_url) {
+		$mail_content = $this->renderFile(
+			$this->getView($confirmation_url ? 'registration_email_with_confirm' : 'registration_email'),
+			[
+				'email'				=> $email,
+				'password'			=> $password,
+				'confirmation_url'	=> $confirmation_url
+			]
+		);
+
+		\solutions\mail::send(
+			$email,
+			static::getConfig('registration_email_title'),
+			nl2br($mail_content)
+		);
 	}
 
 	static public function signIn(userModel $user) {

@@ -21,5 +21,7 @@ return [
 		'/user/name'			=> 'name'
 	],
 
-	'afterAuthUrl' => '/'
+	'afterAuthUrl' => '/',
+
+	'registration_email_title'	=> __('Registration')
 ];
