@@ -229,7 +229,7 @@ class solution extends \renderer {
 		return false;
 	}
 
-	static public function getUrl($controller_name = null, array $get_params = []) {
+	static public function getUrl($controller_name = null, array $get_params = [], $full = false) {
 		if($controller_name === null)
 			$controller_name = self::getControllerName();
 
@@ -287,6 +287,11 @@ class solution extends \renderer {
 			if($get_params) {
 				$route .= '?'.http_build_query($get_params);
 			}
+
+			if($full) {
+				$route = 'http://'.PROJECT.$route;
+			}
+
 			return $route;
 		}
 

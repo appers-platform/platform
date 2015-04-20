@@ -190,7 +190,7 @@ class application {
 		throw new Exception("Can\'t get controller name");
 	}
 
-	static public function getUrl($controller_name = null, array $get_params = []) {
+	static public function getUrl($controller_name = null, array $get_params = [], $full = false) {
 		if($controller_name === null)
 			$controller_name = self::getControllerName();
 
@@ -244,6 +244,11 @@ class application {
 			if($get_params) {
 				$route .= '?'.http_build_query($get_params);
 			}
+			
+			if($full) {
+				$route = 'http://'.PROJECT.$route;
+			}
+
 			return $route;
 		}
 
