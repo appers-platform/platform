@@ -289,7 +289,7 @@ abstract class model {
 
 		$this->_id = $ids[0];
 		$this->_values = false;
-		$this->_modified_fields = array_diff($this->_modified_fields, [static::getPK()]);
+		$this->_modified_fields = [];
 
 		return true;
 	}
