@@ -4,8 +4,13 @@ use \solutions\access;
 use \cli;
 use \solutions\user\userModel;
 
+if(!PROJECT) {
+	print "Task should be runned from project\n";
+	return ;
+}
+
 $command = false;
-foreach(['list', 'show', 'edit'] as $cmd) {
+foreach(['list', 'show', 'edit', 'find'] as $cmd) {
 	if(cli::hasArgument($cmd)) {
 		$command = $cmd;
 		break;
@@ -18,6 +23,7 @@ if(!$command) {
 
 Options:
 	list [access=type] [limit=50] - list all users with access (limit 50 by default)
+	find email=mail@examp.com [limit=50]
 	show user_id=000
 	edit user_id=000 [add=type[,type2]]
 	edit user_id=000 [delete=type[,type2]]
@@ -65,6 +71,27 @@ switch($command) {
 
 		print implode(',', access::getAccess($user_model));
 
+		break;
+
+	case 'find':
+		$user_model = new userModel();
+		if(!$user_model->email = ['like', '%'.cli::getArgument('email').'%']) {
+			print "You should enter email\n";
+			return;
+		}
+		$users = $user_model->findAll(null, (int) cli::getArgument('limit', 50));
+		if(!count($users)) {
+			print "Not found.\n";
+			return;
+		}
+		foreach ($users as $user) {
+			print $user->id;
+			print "\t";
+			print $user->email;
+			print "\t";
+			print implode(',', access::getAccess($user));
+			print "\n";
+		}
 		break;
 
 	case 'edit':
