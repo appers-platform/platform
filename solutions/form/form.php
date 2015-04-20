@@ -92,6 +92,7 @@ class form extends solution {
 					'name'	=> isset($data[0]) ? $data[0] : null,
 					'type'	=> isset($data[1]) ? $data[1] : null,
 					'value'	=> isset($data[2]) ? $data[2] : null,
+					'title'	=> isset($data[3]) ? $data[3] : null,
 				];
 			}
 
