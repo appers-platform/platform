@@ -2,7 +2,51 @@
 	.value {
 		font-weight: bolder;
 		color: #a9a9a9;
+		position: relative;
+		top: 3px;
+		padding-right: 10px;
 	}
 	.value.plus { color: #390; }
 	.value.minus { color: #c00; }
+
+	.likes-dislikes{
+		display:inline-block;
+	}
+	.likes-dislikes__like, .likes-dislikes__dislike {
+		background-image:url(/solutions-public/voting/images/like-all-sprite.png);
+		background-repeat:no-repeat;
+		padding-left:22px;
+		height:20px;
+		display:inline-block;
+		font-size:12px;
+		padding-top:2px;
+	}
+	.likes-dislikes__like:hover, .likes-dislikes__dislike:hover {
+		cursor:pointer;
+		text-decoration: none;
+	}
+	.likes-dislikes__like:hover {
+		background-position:0 -24px;
+	}
+	.likes-dislikes__dislike:hover {
+		background-position:0 -96px;
+	}
+	.likes-dislikes__like {
+		background-position:0 0;
+		color:#2b5c86;
+	}
+	.likes-dislikes__dislike {
+		background-position:0 -71px;
+		color:#dd454d;
+	}
+	.likes-dislikes__like[disabled],.likes-dislikes__like.disabled {
+		color:#aaa;
+		cursor:default;
+		background-position:0 -48px;
+	}
+	.likes-dislikes__dislike[disabled],.likes-dislikes__dislike.disabled {
+		color:#aaa;
+		background-position:0 -120px;
+		cursor:default;
+	}
 }

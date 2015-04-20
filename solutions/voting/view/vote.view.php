@@ -4,11 +4,11 @@
 		<?=(int)$model->rate?>
 	</span>
 	<? if($can_vote) {?>
-		<a href="javascript:void(0);" rel="+" title="<?=__('+1')?>" data-id="<?=$target_element_id?>">
-			<span class="glyphicon glyphicon-arrow-up"></span>
+		<a href="javascript:void(0);" rel="+" title="<?=__('+1')?>" data-id="<?=$target_element_id?>" class="likes-dislikes__like">
+			&nbsp;
 		</a>
-		<a href="javascript:void(0);" rel="-" title="<?=__('-1')?>" data-id="<?=$target_element_id?>">
-			<span class="glyphicon glyphicon-arrow-down"></span>
+		<a href="javascript:void(0);" rel="-" title="<?=__('-1')?>" data-id="<?=$target_element_id?>" class="likes-dislikes__dislike">
+			&nbsp;
 		</a>
 	<? } ?>
 </span>
