@@ -11,6 +11,7 @@ class solutionController extends \solutions\solution {
 
 	private $_values = [];
 	protected $view = null;
+	protected $global_view = false;
 
 	public function __get($name) {
 		if(!isset($this->_values[$name]))
@@ -93,17 +94,35 @@ class solutionController extends \solutions\solution {
 
 	public function setView($view) {
 		$this->view = $view;
+		$this->global_view = false;
 	}
 
-	public function getView() {
+	public function setGlobalView($view) {
+		$this->view = $view;
+		$this->global_view = true;
+	}
+
+	public function getView($view = null) {
 		if(get_called_class() == __CLASS__)
 			throw new Exception('Direct call is denied.');
 
-		if($this->view) {
+		if($this->view || $view) {
+			if($this->global_view && !$view) {
+				$path = explode('_', $this->view);
+				$name = array_pop($path);
+				array_push($path, '_view');
+				array_push($path, $name);
+				return PROJECT_ROOT.'/controller/'.implode('/', $path).'.view.php';
+			}
 			$name = explode('\\', get_called_class());
 			array_shift($name);
 			$solution_name = array_shift($name);
-			return ROOT.'/solutions/'.$solution_name.'/view/'.$this->view.'.view.php';
+
+			$custom_view = PROJECT_ROOT.'/solutions/'.$solution_name.'/'.($this->view?:$view).'.view.php';
+			if(is_file($custom_view))
+				return $custom_view;
+
+			return ROOT.'/solutions/'.$solution_name.'/view/'.($this->view?:$view).'.view.php';
 		}
 
 		return self::getViewFileName(get_called_class());
