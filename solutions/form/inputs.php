@@ -61,7 +61,7 @@ class textarea extends input {
 		?>
 		<div class="form-group">
 			<label for="exampleInputPassword1"><?=$this->title?></label>
-			<textarea class="form-control" name="<?=$this->name?>" rows="3"><?=$this->value?></textarea>
+			<textarea class="form-control" name="<?=$this->name?>"><?=$this->value?></textarea>
 		</div>
 	<?
 	}

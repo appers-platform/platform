@@ -34,6 +34,17 @@ class form extends solution {
 		return $this;
 	}
 
+	public function setMethod($method) {
+		$this->method = $method;
+		return $this;
+	}
+
+	public function setAction($action) {
+		$this->action = $action;
+		return $this;
+	}
+
+
 	public function setId($id) {
 		$this->id = $id;
 		return $id;
