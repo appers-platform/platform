@@ -33,6 +33,7 @@
 			color:#d32d27;
 		}
 	</style>
+	<title><?=$title?></title>
 </head>
 <body style="margin:0;padding:0;border:0;background-color:#fff;text-align:center;font-family:open sans,arial,verdana,sans-serif;color:#333;font-size:12px;">
 <table width="100%" style="background:#f0f0f0; padding:20px;">

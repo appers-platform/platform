@@ -16,6 +16,7 @@ class mail extends solution {
 	 */
 	static public function send($receiver_email, $title, $content, $layout = 'mail', array $params = []) {
 		$params['receiver_email'] = $receiver_email;
+		$params['title'] = $title;
 
 		if($debug = self::getConfig('debug', false)) {
 			file_put_contents($debug, self::renderContent($layout, $content, $params));
