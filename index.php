@@ -9,6 +9,14 @@ try {
 	define('PROJECT', strtolower($_SERVER["HTTP_HOST"]));
 	define('PROJECT_ROOT', dirname(ROOT).'/appers/'.PROJECT);
 	if(!is_dir(PROJECT_ROOT)) {
+		print '<html>
+<head><title>404 Not Found</title></head>
+<body bgcolor="white">
+<center><h1>404 Not Found</h1></center>
+<hr>
+</body>
+</html>
+';
 		exit;
 	}
 	define('PROJECTS_ROOT', dirname(ROOT).'/appers');
