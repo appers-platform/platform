@@ -29,6 +29,7 @@ class dbMysql extends dbSql {
 				if(isset($matches[1]) && $matches[1]) {
 					$e = new sqlException($e->getMessage(), sqlException::CODE_TABLE_NF, $e);
 					$e->setData($matches[1]);
+					throw $e;
 				}
 
 				$matches = [];
