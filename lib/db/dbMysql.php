@@ -23,16 +23,14 @@ class dbMysql extends dbSql {
 				throw $e;
 			}
 
-			if($e->getCode() == '42S02') {
+			if(in_array($e->getCode(), ['42S02', '42S22', 42])) {
 				$matches = [];
 				preg_match("/Table '[^\\.]+\\.([^\\']+)' doesn't exist/", $e->getMessage(), $matches);
 				if(isset($matches[1]) && $matches[1]) {
 					$e = new sqlException($e->getMessage(), sqlException::CODE_TABLE_NF, $e);
 					$e->setData($matches[1]);
 				}
-				throw $e;
-			}
-			if($e->getCode() == '42S22') {
+
 				$matches = [];
 				preg_match("/Unknown column '([^\\']+)' in /", $e->getMessage(), $matches);
 				$field = isset($matches[1]) ? $matches[1] : null;
