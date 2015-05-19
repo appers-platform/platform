@@ -45,7 +45,7 @@ while(1) {
 #			print "alive...";
 			$actual++;
 			if(!$workers[$queue] || !proc_get_status($workers[$queue])['running']) {
-				$workers[$queue] = proc_open('php '.EXEC_PATH.'sys::bgWorker queue='.$queue.' toLog', [
+				$workers[$queue] = proc_open('php '.EXEC_PATH.' sys::bgWorker queue='.$queue.' toLog', [
 					0 => array('pipe', 'r'),
 					1 => array('pipe', 'w'),
 					2 => array('pipe', 'w')
