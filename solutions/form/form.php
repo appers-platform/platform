@@ -7,6 +7,7 @@ use solutions\form\select;
 use solutions\form\input;
 use solutions\form\textarea;
 use solutions\form\hidden;
+use solutions\form\html;
 
 class form extends solution {
 	private $action;
@@ -100,9 +101,9 @@ class form extends solution {
 			}
 			if(!\helper::isAssoc($data)) {
 				$data = [
+					'value'	=> isset($data[2]) ? $data[2] : null,
 					'name'	=> isset($data[0]) ? $data[0] : null,
 					'type'	=> isset($data[1]) ? $data[1] : null,
-					'value'	=> isset($data[2]) ? $data[2] : null,
 					'title'	=> isset($data[3]) ? $data[3] : null,
 				];
 			}
@@ -119,6 +120,9 @@ class form extends solution {
 					break;
 				case 'hidden':
 					$field = new hidden();
+					break;
+				case 'html':
+					$field = new html();
 					break;
 				default:
 					$field = new text();
@@ -138,6 +142,8 @@ class form extends solution {
 				$this->fields[] = $field;
 			}
 		}
+
+		return $this;
 	}
 
 	public function __toString() {
