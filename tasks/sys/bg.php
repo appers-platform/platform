@@ -36,6 +36,16 @@ $ttl = config::get('bg')['manager_ttl'] ?: 60;
 
 $last_active = time();
 
+if(preg_match('/dash$/', trim(exec('ls -la /bin/sh')))) {
+?>
+In your system /bin/sh is link to /bin/dash, but you can't use it. Change it, for example to /bin/bash.
+Reasons: http://stackoverflow.com/questions/22644310/php-proc-open-bash-vs-dash
+(Hint) Check: ls -l /bin/sh
+
+<?
+return;
+}
+
 while(1) {
 	$actual = 0;
 #	print "loop\n";
@@ -45,11 +55,11 @@ while(1) {
 #			print "alive...";
 			$actual++;
 			if(!$workers[$queue] || !proc_get_status($workers[$queue])['running']) {
-				$workers[$queue] = proc_open('php '.EXEC_PATH.' sys::bgWorker queue='.$queue.' toLog', [
+				$workers[$queue] = proc_open(cli::getTaskCmd('sys::bgWorker', ['queue' => $queue, 'toLog' => '']), [
 					0 => array('pipe', 'r'),
 					1 => array('pipe', 'w'),
 					2 => array('pipe', 'w')
-				], $pipes[$queue], null, array_merge($_ENV, [ 'PROJECT' => PROJECT ]));
+				], $pipes[$queue], null, $_ENV);
 
 				print "Run worker '{$queue}'\n";
 			} else {
