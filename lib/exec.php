@@ -6,7 +6,7 @@ define('TIME_START', microtime(true));
 define('ROOT', dirname(dirname(__FILE__)));
 define('CONFIG_ROOT', dirname(dirname(dirname(__FILE__))).'/config');
 define('PROJECT', strtolower(isset($_ENV["PROJECT"]) ? $_ENV["PROJECT"] : null));
-define('PROJECT_ROOT', dirname(ROOT).'/appers/'.PROJECT);
+define('PROJECT_ROOT', PROJECT ? dirname(ROOT).'/appers/'.PROJECT : null);
 define('PROJECTS_ROOT', dirname(ROOT).'/appers');
 define('EXEC_PATH', __FILE__);
 require ROOT.'/lib/application/loader.php';
