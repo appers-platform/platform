@@ -46,6 +46,22 @@ class solution extends \renderer {
 			[ 'wrapper'	=> 'solution', 'solution_name' => $solution ]
 		);
 
+		if(is_dir($override_dir = PROJECT_ROOT.'/solutions/'.$solution_dir)) {
+			\styles::scan(
+				$override_dir,
+				\styles::GROUP_SOLUTIONS,
+				false,
+				[ 'wrapper'	=> 'solution', 'solution_name' => $solution ]
+			);
+
+			\js::scan(
+				$override_dir,
+				\js::GROUP_SOLUTIONS,
+				false,
+				[ 'wrapper'	=> 'solution', 'solution_name' => $solution ]
+			);
+		}
+
 		\config::processSolution($solution_dir);
 
 		if(static::ENABLING_REQUIRED && !static::getConfig('enabled', false)) {
