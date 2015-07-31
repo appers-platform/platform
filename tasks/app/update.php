@@ -9,4 +9,4 @@ if(PROJECT) {
 cli::runCmdWithPrint($cmd);
 cli::run(['app::clearCache'], false);
 loader::generateCache();
-bg::restartWorkers();
+cli::run(['sys::bgRestart'], false);

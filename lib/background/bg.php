@@ -98,6 +98,6 @@ class bg {
 	}
 
 	static public function restartWorkers() {
-		cli::runBackgroundTask('sys::bgRestart', []);
+		return cli::runBackgroundTask('sys::bgRestart', []);
 	}
 }
