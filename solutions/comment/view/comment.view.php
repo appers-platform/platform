@@ -8,7 +8,7 @@
 				}
 			} ?>
 			<div class="defaultComment">
-				<a href="javascript:void(0);" class="top_comment hidden" rel="reply" data-id="<?=$comment->id?>"><?=__('Write comment')?></a>
+				<a target="_self" href="javascript:void(0);" class="top_comment hidden" rel="reply" data-id="<?=$comment->id?>"><?=__('Write comment')?></a>
 				<?=\solutions\form::create(
 					[
 						[

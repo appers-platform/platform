@@ -15,7 +15,7 @@ foreach(['Mail.ru' => 'mailru'] as $name => $controller) {
 $html_social[] = '<div class="orBlock"><hr><div>'.__('OR').'</div></div>';
 
 $html_add = '<div class="orBlock"><hr><div>'.__('OR').'</div></div>';
-$html_add .= '<a href="'.$this->getUrl('registration', [
+$html_add .= '<a target="_self" href="'.$this->getUrl('registration', [
 	'_frame' => \request::getInt('_frame'),
 	'afterAuthUrl' => \solutions\user::getAfterAuthUrl()
 ]).'" class="a_link">'.__('Sign up').'</a>';
@@ -47,7 +47,7 @@ if(isset($message))
 	$form->setMessage($message);
 
 if(isset($show_recover_link)) {
-	$link = '<br><a href="'.$this->getUrl('recover').'">'.__('Recover password').'</a>';
+	$link = '<br><a target="_self" href="'.$this->getUrl('recover').'">'.__('Recover password').'</a>';
 	$form->setMessage($form->getMessage().' '.$link);
 }
 

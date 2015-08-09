@@ -15,7 +15,7 @@ foreach(['Mail.ru' => 'mailru'] as $name => $controller) {
 $html_social[] = '<div class="orBlock"><hr><div>'.__('OR').'</div></div>';
 
 $html_add = '<div class="orBlock"><hr><div>'.__('OR').'</div></div>';
-$html_add .= '<a href="'.$this->getUrl('login', [
+$html_add .= '<a target="_self" href="'.$this->getUrl('login', [
 	'_frame' => \request::getInt('_frame'),
 	'afterAuthUrl' => \solutions\user::getAfterAuthUrl()
 ]).'" class="a_link">'.__('Sign in').'</a>';

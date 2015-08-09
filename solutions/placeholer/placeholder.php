@@ -7,7 +7,7 @@ class placeholer extends solution {
 		return preg_replace([
 			'/\\<link'.$num.'\\>(.*)\\<\\/link'.$num.'\\>/',
 		], [
-			'<a href=\''.$url.'\'>$1</a>'
+			'<a target="_self" href=\''.$url.'\'>$1</a>'
 		], $text);
 	}
 }
