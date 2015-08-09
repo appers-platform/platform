@@ -17,15 +17,15 @@
 
 		<div class="functions">
 			<? if(!\solutions\user::getCurrent() || $comment->user_id != \solutions\user::getCurrent()->getId()) {?>
-				<a target="_self" href="javascript:void(0);" rel="reply" data-id="<?=$comment->id?>"><?=__('Reply')?></a>
+				<a href="javascript:void(0);" rel="reply" data-id="<?=$comment->id?>"><?=__('Reply')?></a>
 			<? }else{ ?>
-				<a target="_self" href="javascript:void(0);" rel="delete" data-id="<?=$comment->id?>"><?=__('Delete')?></a>
+				<a href="javascript:void(0);" rel="delete" data-id="<?=$comment->id?>"><?=__('Delete')?></a>
 			<? } ?>
 			<? if((!\solutions\user::getCurrent() || $comment->user_id != \solutions\user::getCurrent()->getId()) && $this->getConfig('complains')) { ?>
-				<a target="_self" href="javascript:void(0);" rel="complaint" data-id="<?=$comment->id?>"><?=__('Complaint')?></a>
+				<a href="javascript:void(0);" rel="complaint" data-id="<?=$comment->id?>"><?=__('Complaint')?></a>
 			<? } ?>
 			<? if((!\solutions\user::getCurrent() || $comment->user_id != \solutions\user::getCurrent()->getId()) && $this->getConfig('spam_report')) { ?>
-				<a target="_self" href="javascript:void(0);" rel="spam" data-id="<?=$comment->id?>"><?=__('Spam')?></a>
+				<a href="javascript:void(0);" rel="spam" data-id="<?=$comment->id?>"><?=__('Spam')?></a>
 			<? } ?>
 		</div>
 

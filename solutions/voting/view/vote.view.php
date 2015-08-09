@@ -4,10 +4,10 @@
 		<?=(int)$model->rate?>
 	</span>
 	<? if($can_vote) {?>
-		<a target="_self" href="javascript:void(0);" rel="+" title="<?=__('+1')?>" data-id="<?=$target_element_id?>" class="likes-dislikes__like">
+		<a href="javascript:void(0);" rel="+" title="<?=__('+1')?>" data-id="<?=$target_element_id?>" class="likes-dislikes__like">
 			&nbsp;
 		</a>
-		<a target="_self" href="javascript:void(0);" rel="-" title="<?=__('-1')?>" data-id="<?=$target_element_id?>" class="likes-dislikes__dislike">
+		<a href="javascript:void(0);" rel="-" title="<?=__('-1')?>" data-id="<?=$target_element_id?>" class="likes-dislikes__dislike">
 			&nbsp;
 		</a>
 	<? } ?>
