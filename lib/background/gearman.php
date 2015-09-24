@@ -34,7 +34,14 @@ class gearmanWorker extends singleton {
 		$this->handle = new \GearmanWorker();
 		$this->handle->addOptions(GEARMAN_WORKER_NON_BLOCKING);
 		$this->handle->setTimeout(2500);
-		$this->handle->addServer( $config['host'], $config['port'] );
+		try {
+			$this->handle->addServer( $config['host'], $config['port'] );
+		} catch (GearmanException $e) {
+			if($e->getMessage() == 'Failed to set exception option') {
+				trigger_error("Can't connect to gearman [host: {$config['host']}, port: {$config['port']}]", E_USER_ERROR);
+			}
+			throw $e;
+		}
 	}
 
 	public function __call($method, $arguments) {
