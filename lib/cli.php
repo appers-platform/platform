@@ -102,7 +102,7 @@ class cli {
 			return '';
 		}
 
-		$return = self::$was_new_line ? '['.self::$unique_task_id.' '.date('Y.m.d H:i:s').']:'."\t".' '.$buffer : $buffer;
+		$return = self::$was_new_line ? '['.(self::$unique_task_id ? self::$unique_task_id.' ':'').date('Y.m.d H:i:s').']:'."\t".' '.$buffer : $buffer;
 		self::$was_new_line = (strpos($buffer, "\n") === (strlen($buffer) - 1));
 
 		return $return;
