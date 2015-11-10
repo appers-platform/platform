@@ -214,6 +214,12 @@ class loader {
 	}
 
 	static public function autoLoad($class, $throw = true) {
+		$backtrace = debug_backtrace();
+		$backtrace = array_pop($backtrace);
+
+		if(substr($backtrace['file'], 0, strlen(ROOT.'/extLib/')) == ROOT.'/extLib/')
+			$throw = false;
+
 		if(substr($class, 0, 1) == '\\')
 			$class = substr($class, 1);
 
