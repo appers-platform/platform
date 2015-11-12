@@ -8,10 +8,11 @@ class loader {
 	static protected $files_loaded = [];
 	static protected $map_generated = false;
 	static protected $is_files_changed = null;
+	static protected $inited = false;
 
 	static protected $directories = [ 'extLib', 'lib', 'solutions', 'tasks', 'controller' ];
 
-	static protected function checkFile(SplFileInfo $file) {
+	static public function checkFile(SplFileInfo $file) {
 		if ($file->getExtension() != 'php')
 			return false;
 
@@ -34,8 +35,18 @@ class loader {
 		return true;
 	}
 
-	static public function generateCache() {
-		if(self::$map_generated)
+	static public function flushCache() {
+		self::$cache = false;
+		self::$ext_lib_len = null;
+	}
+
+	static public function flushCacheFile() {
+		unlink(ROOT . '/cache/'.PROJECT.'-load.php');
+		self::$map_generated = false;
+	}
+
+	static public function generateCache($force = false) {
+		if(self::$map_generated && !$force)
 			return;
 		self::$map_generated = true;
 
@@ -74,8 +85,8 @@ class loader {
 		file_put_contents(ROOT.'/cache/'.PROJECT.'-load.php', $export);
 	}
 
-	static public function getFilesListMd5() {
-		if(self::$files_list_md5)
+	static public function getFilesListMd5($force = false) {
+		if(self::$files_list_md5 && !$force)
 			return self::$files_list_md5;
 
 		$files_list = [];
@@ -105,8 +116,8 @@ class loader {
 		return self::$files_list_md5;
 	}
 
-	static public function getFilesDeepMd5() {
-		if(self::$files_deep_md5)
+	static public function getFilesContentMd5($force = false) {
+		if(self::$files_deep_md5 && !$force)
 			return self::$files_deep_md5;
 
 		$files_list = [];
@@ -136,18 +147,32 @@ class loader {
 		return self::$files_deep_md5;
 	}
 
+	static public function flushContentCache() {
+		self::$is_files_changed = null;
+	}
+
+	static public function flushContentCacheFile($unlink = true) {
+		$file = ROOT.'/cache/'.PROJECT.'-content-md5.txt';
+		if($unlink && is_file($file)) {
+			unlink($file);
+		} else {
+			file_put_contents($file, md5(time()));
+		}
+		self::$is_files_changed = null;
+	}
+
 	static public function isFilesChanged() {
 		if(self::$is_files_changed !== null)
 			return self::$is_files_changed;
 
-		if(is_file($file = ROOT.'/cache/'.PROJECT.'-deep-md5.txt')) {
-			if(file_get_contents($file) == self::getFilesDeepMd5()) {
+		if(is_file($file = ROOT.'/cache/'.PROJECT.'-content-md5.txt')) {
+			if(file_get_contents($file) == self::getFilesContentMd5()) {
 				self::$is_files_changed = false;
 				return false;
 			}
 		}
 
-		file_put_contents($file, self::getFilesDeepMd5());
+		file_put_contents($file, self::getFilesContentMd5());
 		self::$is_files_changed = true;
 		return true;
 	}
@@ -172,7 +197,7 @@ class loader {
 		return self::$cache;
 	}
 
-	static protected function getClasses($php_code) {
+	static public function getClasses($php_code) {
 		$classes = array();
 		$tokens = token_get_all($php_code);
 		$count = count($tokens);
@@ -298,7 +323,9 @@ class loader {
 		return true;
 	}
 
-	static public function init() {
+	static public function init($force = false) {
+		if(self::$inited && !$force) return;
+		self::$inited = true;
 		spl_autoload_register('loader::autoLoad');
 		require_once ROOT.'/lib/application/define.php';
 		require_once ROOT.'/lib/i18n.php';
