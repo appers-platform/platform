@@ -40,8 +40,13 @@ class response {
 	}
 
 	static public function send($content = '') {
-		foreach(self::$headers as $header => $value)
-			header($header, $value);
+		foreach(self::$headers as $header => $value) {
+			if($header == 'Content-Type') {
+				header($header.': '.$value);
+			} else {
+				header($header, $value);
+			}
+		}
 
 		print $content;
 	}
