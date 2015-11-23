@@ -110,8 +110,10 @@ class application {
 					event::fire('afterControllerRender');
 				}
 
-				response::setHeader('Content-Type: '.self::$controller->getType(), null);
-				response::send(self::$controller->getOutput());
+				if(!response::isSent()) {
+					response::setHeader('Content-Type: '.self::$controller->getType(), null);
+					response::send(self::$controller->getOutput());
+				}
 
 				return true;
 			}

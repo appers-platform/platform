@@ -2,6 +2,7 @@
 class response {
 	protected static $headers = [];
 	protected static $p3p_sent = false;
+	protected static $sent = false;
 
 	static public function redirect($url, $status = 302) {
 		header('Location: '.$url, true, $status);
@@ -39,7 +40,17 @@ class response {
 		self::$headers[$name] = $value;
 	}
 
+	static public function isSent() {
+		return self::$sent;
+	}
+
 	static public function send($content = '') {
+		if(self::$sent) {
+			throw new Exception("Already sent");
+		}
+
+		self::$sent = true;
+
 		foreach(self::$headers as $header => $value) {
 			if($header == 'Content-Type') {
 				header($header.': '.$value);
