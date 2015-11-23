@@ -1,6 +1,6 @@
 <?
 class renderer extends stdClass {
-	public function renderFile($file, $context, $silent = false) {
+	public function renderFile($file, $context = [], $silent = false) {
 		if(!is_file($file)) {
 			if($silent) return '';
 			throw new Exception('File "'.$file.'" not found.');
@@ -17,7 +17,6 @@ class renderer extends stdClass {
 	public function __get($name) {
 		if(!isset($this->$name))
 			return null;
-
 		return $this->$name;
 	}
 
