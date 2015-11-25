@@ -8,7 +8,7 @@ define('CONFIG_ROOT', dirname(dirname(dirname(__FILE__))).'/config');
 define('PROJECT', strtolower(isset($_ENV["PROJECT"]) ? $_ENV["PROJECT"] : null));
 define('PROJECT_ROOT', PROJECT ? dirname(ROOT).'/appers/'.PROJECT : null);
 define('PROJECTS_ROOT', dirname(ROOT).'/appers');
-define('EXEC_PATH', __FILE__);
+define('EXEC_PATH', dirname(__FILE__).'/exec.php');
 require ROOT.'/lib/application/loader.php';
 loader::init();
 config::init();
