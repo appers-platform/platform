@@ -27,7 +27,15 @@ class dbVertica extends dbSql {
 	public function directQuery($sql, array $params = [], $autocreate = true) {
 		$query = $this->connection->prepare($sql);
 		$this->timer->start();
-		$result = $query->execute($params);
+		try {
+			$result = $query->execute($params);
+		} catch (Exception $e) {
+			throw new Exception(
+				$e->getMessage().' SQL: '.$sql,
+				$e->getCode(),
+				$e
+			);
+		}
 		$this->timer->stop();
 
 		if (stripos(trim($sql), 'SELECT') !== 0 && stripos(trim($sql), 'COMMIT') !== 0) {
