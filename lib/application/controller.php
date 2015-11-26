@@ -22,7 +22,9 @@ class controller extends renderer {
 	}
 
 	public function setOutput($output) {
-		return $this->output = $output;
+		if($output) {
+			$this->output = $output;
+		}
 	}
 
 	public function setTitle($title) {
