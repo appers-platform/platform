@@ -82,6 +82,7 @@ class application {
 
 				event::fire('beforeControllerRun');
 
+				ob_start();
 				self::$controller->first();
 
 				if(request::isGET())
@@ -91,6 +92,8 @@ class application {
 					self::$controller->post();
 
 				self::$controller->last();
+				self::$controller->setOutput( ob_get_contents() );
+				ob_end_clean();
 
 				event::fire('afterControllerRun');
 

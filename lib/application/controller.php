@@ -6,7 +6,6 @@ class controller extends renderer {
 	protected $meta = [];
 	public $title;
 	protected $wrappers_enabled = true;
-	protected $output_plain = false;
 
 	function post(){}
 	function get(){}
@@ -20,6 +19,10 @@ class controller extends renderer {
 
 	public function returnPlain($output) {
 		$this->output = $output;
+	}
+
+	public function setOutput($output) {
+		return $this->output = $output;
 	}
 
 	public function setTitle($title) {
