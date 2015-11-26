@@ -3,6 +3,7 @@ class response {
 	protected static $headers = [];
 	protected static $p3p_sent = false;
 	protected static $sent = false;
+	protected static $ob_started = false;
 
 	static public function redirect($url, $status = 302) {
 		header('Location: '.$url, true, $status);
@@ -45,6 +46,8 @@ class response {
 	}
 
 	static public function send($content = '') {
+		self::ob_end();
+
 		if(self::$sent) {
 			throw new Exception("Already sent");
 		}
@@ -68,4 +71,20 @@ class response {
 		header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 		self::$p3p_sent = true;
 	}
+
+	static public function ob_start() {
+		if(self::$ob_started) return ;
+		self::$ob_started = true;
+		ob_start();
+	}
+
+	static public function ob_end() {
+		if(!self::$ob_started) return ;
+		self::$ob_started = false;
+		$result = ob_get_contents();
+		ob_end_clean();
+		return $result;
+	}
+
+
 }
