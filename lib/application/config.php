@@ -2,6 +2,7 @@
 class config {
 	static protected $config = [];
 	static protected $processed_solutions = [];
+	static protected $env;
 
 	static public function processSolution($solution_name) {
 		if(in_array($solution_name, self::$processed_solutions))
@@ -40,6 +41,10 @@ class config {
 		}
 	}
 
+	static public function getEnv() {
+		return self::$env;
+	}
+
 	static public function init()  {
 		self::$config = require ROOT.'/config/default.php';
 		if(is_file(PROJECT_ROOT.'/config/parent.php')) {
@@ -49,16 +54,16 @@ class config {
 			);
 		}
 
-		if($env = @include(CONFIG_ROOT.'/_env.php')) {
+		if(self::$env = @include(CONFIG_ROOT.'/_env.php')) {
 			self::$config = self::mergeArray(
 				self::$config,
-				require CONFIG_ROOT.'/'.$env.'.php'
+				require CONFIG_ROOT.'/'.self::$env.'.php'
 			);
 
-			if(is_file(PROJECT_ROOT.'/config/'.$env.'.php')) {
+			if(is_file(PROJECT_ROOT.'/config/'.self::$env.'.php')) {
 				self::$config = self::mergeArray(
 					self::$config,
-					require PROJECT_ROOT.'/config/'.$env.'.php'
+					require PROJECT_ROOT.'/config/'.self::$env.'.php'
 				);
 			}
 		}
