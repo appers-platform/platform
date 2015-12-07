@@ -28,7 +28,7 @@ class styles extends staticParent {
 		if($urls) {
 			foreach($urls as $url)
 				if($url)
-					$result[] = '<link rel="stylesheet" type="text/css" href="'.$url.'"/>';
+					$result[] = '<style>@import "'.$url.'";</style>';
 		}
 
 		return implode("\n", $result);
