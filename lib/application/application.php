@@ -123,13 +123,11 @@ class application {
 		return false;
 	}
 
-	static public function renderMeta($with_scripts = true) {
+	static public function renderMeta($with_scripts = true, $with_styles = true) {
 		$result = 
 			'<title>'.application::getController()->getTitle().'</title>'."\n".
-			styles::renderHTML(styles::GROUP_PUBLIC)."\n".
-			styles::renderHTML(styles::GROUP_SOLUTIONS)."\n".
-			styles::renderHTML(styles::GROUP_CONTROLLER)."\n".
 			($with_scripts ? self::renderScripts() : '').
+			($with_scripts ? self::renderStyles() : '').
 			'<meta charset="utf-8">'."\n"
 			;
 
@@ -149,6 +147,12 @@ class application {
 			js::renderHTML(js::GROUP_SOLUTIONS)."\n".
 			js::renderHTML(js::GROUP_CONTROLLER)."\n".
 			js::renderLastHTML()."\n";
+	}
+
+	static public function renderStyles() {
+		return styles::renderHTML(styles::GROUP_PUBLIC)."\n".
+			styles::renderHTML(styles::GROUP_SOLUTIONS)."\n".
+			styles::renderHTML(styles::GROUP_CONTROLLER)."\n";
 	}
 
 	static public function getExecutingTime() {
