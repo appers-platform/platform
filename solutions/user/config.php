@@ -1,6 +1,6 @@
 <?
 return [
-	'css' => ['formClass' => 'col-xs-6 col-md-4'],
+	'css' => ['formClass' => ''],
 
 	'oauth_mail_ru' => [
 		'id'			=> 0,
