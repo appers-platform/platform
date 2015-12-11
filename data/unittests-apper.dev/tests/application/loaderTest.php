@@ -15,6 +15,8 @@ class applicationLoaderTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(class_exists('context'));
 		$this->assertTrue(class_exists('controller'));
 		$this->assertTrue(class_exists('event'));
+
+		loader::flushCache();
 		$this->assertTrue(class_exists('renderer'));
 
 		$prefix = 't'.md5(microtime());
