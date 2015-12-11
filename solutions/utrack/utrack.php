@@ -51,7 +51,7 @@ class utrack extends solution {
 	}
 
 	static protected function setIdToCookie() {
-		\cookie::set('id', self::$id);
+		\cookie::set('id', self::$id, 3*TTL_YEAR);
 	}
 
 	static protected function generateId() {
