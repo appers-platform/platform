@@ -26,6 +26,7 @@ abstract class dbSql {
 	abstract public function addField($table, $field_name);
 
 	abstract public function getNow();
+	abstract public function getToday();
 
 	abstract protected function __construct($config_name, $without_select_db = false);
 

@@ -25,7 +25,15 @@ class vertica extends solution implements storageDriver {
 		return dbVertica::getConnect()->getNow();
 	}
 
+	static public function getToday() {
+		return dbVertica::getConnect()->getToday();
+	}
+
 	static public function getRows( $params_sql, $table = null ) {
 		return dbVertica::getConnect()->getRows( $params_sql, $table );
+	}
+
+	static public function delete($table, $data) {
+		return dbVertica::getConnect()->delete($data, $table);
 	}
 }

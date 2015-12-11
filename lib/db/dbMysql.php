@@ -155,4 +155,8 @@ class dbMysql extends dbSql {
 	public function getNow() {
 		return date('Y-m-d H:i:s');
 	}
+
+	public function getToday() {
+		return date('Y-m-d');
+	}
 }
