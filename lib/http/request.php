@@ -70,6 +70,14 @@ class request {
 		return $only_get_and_post ? array_merge($_GET, $_POST) : $_REQUEST;
 	}
 
+	public static function getPOST() {
+		return $_POST;
+	}
+
+	public static function getGET() {
+		return $_GET;
+	}
+
 	public static function getReferer() {
 		return $_SERVER['HTTP_REFERER'];
 	}
