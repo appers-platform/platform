@@ -300,11 +300,11 @@ class loader {
 				}
 			}
 		}
-
 		if(!class_exists($class, false) && self::getFilesListMd5() != self::$cache['$md5']) {
 			self::generateCache();
-			if(isset(self::$cache[$class]) && !interface_exists($class) && !class_exists($class))
+			if(isset(self::$cache[$class]) && !interface_exists($class) && !class_exists($class) && !trait_exists($class, false)) {
 				self::loadFile(self::$cache[$class], $class);
+			}
 		}
 
 		if(class_exists($class, false)) {
@@ -314,7 +314,7 @@ class loader {
 				}
 			}
 			return true;
-		} else if(!interface_exists($class, false)) {
+		} else if(!interface_exists($class, false) && !trait_exists($class, false)) {
 			if($throw)
 				throw new Exception('Can\'t load "'.$class.'"');
 			return false;
