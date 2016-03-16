@@ -3,6 +3,7 @@ $text_enter_with = __('Enter with');
 $html_social = [];
 
 foreach(['Mail.ru' => 'mailru'] as $name => $controller) {
+	if(!$this->getConfig('oauth_'.$controller, false)) continue;
 	$url = $this->getUrl('oauth_'.$controller).'?afterAuthUrl='.urlencode(\solutions\user::getAfterAuthUrl());
 	$html_social[] = "
 		<a target='_top' href='{$url}' class='s_auth'>
@@ -12,7 +13,8 @@ foreach(['Mail.ru' => 'mailru'] as $name => $controller) {
 	";
 }
 
-$html_social[] = '<div class="orBlock"><hr><div>'.__('OR').'</div></div>';
+if(count($html_social))
+	$html_social[] = '<div class="orBlock"><hr><div>'.__('OR').'</div></div>';
 
 $html_add = '<div class="orBlock"><hr><div>'.__('OR').'</div></div>';
 $html_add .= '<a href="'.$this->getUrl('registration', [
