@@ -4,6 +4,10 @@ class solutionLoaderController extends controller {
 		$this->type = 'text/html; charset=utf-8';
 		$content = $this->content;
 
+		if($layout = $this->solution->getConfig('layout')) {
+			$this->layout = $layout;
+		}
+
 		if(request::getInt('_frame')) {
 			$this->wrappers_enabled = false;
 			$this->layout = 'frame';
