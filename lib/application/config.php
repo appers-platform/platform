@@ -17,6 +17,10 @@ class config {
 			$matches = [];
 			if(preg_match('/^(.*)Solution$/', $name, $matches)) {
 				if(isset($value['enabled']) && $value['enabled']) {
+					self::$config[$matches[1].'Solution'] = self::mergeArray(
+						self::$config[$matches[1].'Solution'],
+						['enabled' => $value['enabled']]
+					);
 					$required_solution_class_name = 'solutions\\'.$matches[1];
 					$required_solution_class_name::mergeToConfig($value);
 					self::processSolution($matches[1]);
