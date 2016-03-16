@@ -32,7 +32,7 @@ try {
 	i18n::setLocale($_SERVER['A_LANGUAGE'] ?: config::get('defaultLocale'));
 	application::run($_SERVER['REQUEST_URI']);
 } catch (Exception $e) {
-	print '<pre style="position:absolute; word-wrap: break-word; top: 0; left: 0; width: 100%;">';
+	print '<pre style="word-wrap: break-word; top: 0; left: 0; width: 100%;">';
 	print 'Exception ['.$e->getCode().']: ';
 	print $e->getMessage();
 	print "\n#  ";
