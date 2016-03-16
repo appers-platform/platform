@@ -8,6 +8,8 @@ return [
 		'secret_key' 	=> 'your_secret_key'
 	],
 
+	'mailSolution'		=> [ 'enabled' => true ],
+
 	'routes' => [
 		'/user/registration'	=> 'registration',
 		'/user/login'			=> 'login',
