@@ -6,4 +6,5 @@
 		<li><a href="<?=$this->getUrl('email')?>"><?=__('Change email')?></a></li>
 		<li><a href="<?=$this->getUrl('password')?>"><?=__('Change password')?></a></li>
 	</ul>
+	<a href="<?=\solutions\user::getAfterAuthUrl()?>"><?=__('Back')?></a>
 </div>
