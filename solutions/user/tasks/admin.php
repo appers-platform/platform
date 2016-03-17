@@ -3,7 +3,7 @@ namespace solutions\user;
 use cli;
 
 $command = false;
-foreach(['list', 'edit', 'add', 'delete', 'find'] as $cmd) {
+foreach(['list', 'edit', 'add', 'delete', 'find', 'show_data', 'edit_data'] as $cmd) {
 	if(cli::hasArgument($cmd)) {
 		$command = $cmd;
 		break;
@@ -20,6 +20,8 @@ Options:
 	add email=box@example.com password=PWD [force]
 	delete id=000 [force]
 	find email=box@example.com
+	show_data id=000
+	edit_data id=000 variable=value
 <?
 	return;
 }
@@ -72,6 +74,49 @@ switch($command) {
 		$id = $model->getId();
 		print "User with ID {$id} has been created.";
 
+		break;
+
+	case 'edit_data':
+		$model = new userModel();
+		if(!$model->id = cli::getArgument('id')) {
+			print "You should enter id\n";
+			return;
+		}
+		$model->find();
+		if(!$model->getId()) {
+			print "User not found\n";
+			return;
+		}
+		
+		$i = 0;
+		$data = unserialize($model->data);
+		foreach(cli::getArguments() as $key => $value) {
+			if(in_array($key, ['id', 'edit_data'])) continue;
+			if($data[$key] != $value) {
+				$data[$key] = $value;
+				$i ++;
+			}
+		}
+		if($i) {
+			$model->data = serialize($data);
+			$model->store();
+		}
+
+		break;
+
+	case 'show_data':
+		$model = new userModel();
+		if(!$model->id = cli::getArgument('id')) {
+			print "You should enter id\n";
+			return;
+		}
+		$model->find();
+		if(!$model->getId()) {
+			print "User not found\n";
+			return;
+		}
+		var_dump(unserialize($model->data));
+		
 		break;
 
 	case 'edit':
