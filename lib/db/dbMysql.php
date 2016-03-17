@@ -14,6 +14,8 @@ class dbMysql extends dbSql {
 	public function directQuery($sql, array $params = [], $autocreate = true) {
 		$query = $this->connection->prepare($sql);
 		$this->timer->start();
+		$this->last_timer->reset();
+		$this->last_timer->start();
 
 		try {
 			#print $sql; print_r($params);
@@ -59,9 +61,11 @@ class dbMysql extends dbSql {
 
 		if(!$result) {
 			$this->timer->stop();
+			$this->last_timer->stop();
 			throw new Exception($query->errorCode().$query->errorInfo());
 		}
 		$this->timer->stop();
+		$this->last_timer->stop();
 		return $query;
 	}
 
@@ -86,6 +90,8 @@ class dbMysql extends dbSql {
 		(isset($config['port']) && $config['port']) ? $params .= ";port={$config['port']}" : null;
 
 		$this->timer = new timer();
+		$this->last_timer = new timer(false);
+
 		try {
 			$this->connection = new PDO($params, $config['user'], $config['password'], $attributes);
 		} catch (PDOException $e) {

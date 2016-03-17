@@ -4,6 +4,7 @@ abstract class dbSql {
 	 * @var timer timer
 	 */
 	protected $timer;
+	protected $last_timer;
 
 	static private $connections = [];
 	private $_cache = [];
@@ -288,5 +289,9 @@ abstract class dbSql {
 
 	public function getTime($round = 2) {
 		return $this->timer->getTime($round);
+	}
+
+	public function getLastTime($round = 2) {
+		return $this->last_timer->getTime($round);
 	}
 }
