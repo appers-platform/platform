@@ -37,6 +37,14 @@ class user extends solution {
 		return self::$user;
 	}
 
+	static public function getCurrentData($key = null) {
+		$data = unserialize(self::current()->data);
+		if($key) {
+			return (isset($data[$key])) ? $data[$key] : null;
+		}
+		return $data;
+	}
+
 	static public function getCurrent() {
 		return self::current();
 	}
