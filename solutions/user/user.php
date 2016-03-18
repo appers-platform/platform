@@ -75,6 +75,10 @@ class user extends solution {
 		return false;
 	}
 
+	static public function getAll() {
+		return userModel::getWhere([]);
+	}
+
 	static public function setCurrent($user) {
 		if($user instanceof userModel) {
 			self::$user = $user;

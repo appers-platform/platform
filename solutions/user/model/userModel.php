@@ -44,4 +44,15 @@ class userModel extends \model {
 			\event::fire('delete', [$id]);
 		}
 	}
+
+	public function getData($key = null) {
+		$data = unserialize($this->data);
+		return ($key) ? $data[$key] : $data;
+	}
+
+	public function setData($key, $value) {
+		$data = unserialize($this->data);
+		$data[$key] = $value;
+		$this->data = serialize($data);
+	}
 }
