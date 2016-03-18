@@ -53,6 +53,7 @@ switch($command) {
 		break;
 
 	case 'add':
+		$model = new userModel();
 		if(!($model->email = cli::getArgument('email'))) {
 			print "You should enter email\n";
 			return;
