@@ -58,7 +58,7 @@ switch($command) {
 			print "You should enter email\n";
 			return;
 		}
-		if(!($model->password = cli::getArgument('password'))) {
+		if(!($model->password = md5(cli::getArgument('password')))) {
 			print "You should enter password\n";
 			return;
 		}
@@ -67,9 +67,6 @@ switch($command) {
 			return;
 		}
 
-		$model = new userModel();
-		$model->password = md5($password);
-		$model->email = $email;
 		$model->store();
 
 		$id = $model->getId();
