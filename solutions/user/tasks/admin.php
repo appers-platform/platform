@@ -10,6 +10,11 @@ foreach(['list', 'edit', 'add', 'delete', 'find', 'show_data', 'edit_data'] as $
 	}
 }
 
+if(!PROJECT) {
+	print "You should run this task only from project.\n";
+	return ;
+}
+
 if(!$command) {
 ?>
 
