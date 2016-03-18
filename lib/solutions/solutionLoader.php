@@ -4,7 +4,7 @@ class solutionLoaderController extends controller {
 		$this->type = 'text/html; charset=utf-8';
 		$content = $this->content;
 
-		if($layout = $this->solution->getConfig('layout')) {
+		if($layout = $this->solution->getConfig('layout', false)) {
 			$this->layout = $layout;
 		}
 
