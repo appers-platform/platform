@@ -23,8 +23,6 @@ class apCacheDriver {
 }
 
 class apCache extends \system\cache {
-	const DRIVER = '\apCacheDriver';
-
 	private $prefix;
 
 	protected function __construct($instance) {
@@ -36,5 +34,9 @@ class apCache extends \system\cache {
 
 	protected function getPrefix() {
 		return $this->prefix;
+	}
+
+	static function getDriver() {
+		return '\apCacheDriver';
 	}
 }

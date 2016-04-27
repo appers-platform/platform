@@ -6,7 +6,6 @@ use timer;
 use Exception;
 
 abstract class cache implements kvStorage {
-	const DRIVER = null;
 	protected static $_instance = null;
 	protected static $timer = null;
 	protected static $_prefix = null;
@@ -14,6 +13,9 @@ abstract class cache implements kvStorage {
 	protected static $local = [];
 
 	abstract protected function __construct($instance);
+	static function getDriver() {
+		throw new Exception("Should be redeclarated");
+	}
 
 	protected function getPrefix() {
 		return '';
@@ -33,7 +35,7 @@ abstract class cache implements kvStorage {
 			throw new Exception('Direct call of method is denied.');
 
 		if(!static::$_instance) {
-			$driver = static::DRIVER;
+			$driver = static::getDriver();
 			if(!$driver)
 				throw new Exception('Driver is not set');
 			static::$_instance = new $driver();
@@ -80,7 +82,7 @@ abstract class cache implements kvStorage {
 		if (is_null($name)) return null;
 		if ( static::$local_cache ) static::$local[$name] = false;
 		static::getTimer()->start();
-		$result = static::instance()->inc(static::$_prefix.\solutions::getStoragePrefix().$name, $value);
+		$result = static::instance()->increment(static::$_prefix.\solutions::getStoragePrefix().$name, $value);
 		static::getTimer()->stop();
 
 		return $result;
@@ -92,7 +94,7 @@ abstract class cache implements kvStorage {
 		if (is_null($name)) return null;
 		if ( static::$local_cache ) static::$local[$name] = false;
 		static::getTimer()->start();
-		$result = static::instance()->dec(static::$_prefix.\solutions::getStoragePrefix().$name);
+		$result = static::instance()->decrement(static::$_prefix.\solutions::getStoragePrefix().$name);
 		static::getTimer()->stop();
 
 		return $result;
