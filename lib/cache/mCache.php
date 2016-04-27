@@ -35,6 +35,23 @@ class mCache extends \system\cache {
 	}
 
 	static function getDriver() {
+		switch($memcache_driver = config::get('memcache_driver')) {
+			case 'memcache':
+				if(loader::autoLoad('Memcache', false))
+					return '\Memcache';
+				throw new Exception('Memcache driver "Memcache" set in config, but not found');
+				break;
+			case 'memcached':
+				if(loader::autoLoad('Memcached', false))
+					return '\Memcached';
+				throw new Exception('Memcache driver "Memcached" set in config, but not found');
+				break;
+			default:
+				if($memcache_driver)
+					throw new Exception("Unknown driver '".$memcache_driver."' in config");
+				break;
+		}
+
 		if(loader::autoLoad('Memcache', false))
 			return '\Memcache';
 		if(loader::autoLoad('Memcached', false))
