@@ -68,7 +68,7 @@ switch($command) {
 			return;
 		}
 
-		if(!cli::hasArgument('force') && !cli::confirm("User with email '{$email}' will be added. Is it ok?")) {
+		if(!cli::hasArgument('force') && !cli::confirm("User with email '{$model->email}' will be added. Is it ok?")) {
 			return;
 		}
 
