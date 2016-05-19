@@ -93,7 +93,7 @@ class dbMysql extends dbSql {
 		$this->last_timer = new timer(false);
 
 		try {
-			$this->connection = new PDO($params, $config['user'], $config['password'], $attributes);
+			$this->connection = @new PDO($params, $config['user'], $config['password'], $attributes);
 		} catch (PDOException $e) {
 			$this->timer->stop();
 			if($e->getCode() == 1049) {
