@@ -58,7 +58,7 @@ abstract class cache implements kvStorage {
 			return static::$local[$name];
 
 		static::getTimer()->start();
-		$result = static::instance()->get(static::$_prefix.\solutions::getStoragePrefix().$name);
+		$result = static::instance()->get(md5(static::$_prefix.\solutions::getStoragePrefix().$name));
 		static::getTimer()->stop();
 
 		return $result;
@@ -70,7 +70,7 @@ abstract class cache implements kvStorage {
 		if (is_null($name)) return null;
 		if ( static::$local_cache ) static::$local[$name] = false;
 		static::getTimer()->start();
-		$result = static::instance()->set(static::$_prefix.\solutions::getStoragePrefix().$name, $value, $ttl);
+		$result = static::instance()->set(md5(static::$_prefix.\solutions::getStoragePrefix().$name, $value, $ttl));
 		static::getTimer()->stop();
 
 		return $result;
@@ -82,7 +82,7 @@ abstract class cache implements kvStorage {
 		if (is_null($name)) return null;
 		if ( static::$local_cache ) static::$local[$name] = false;
 		static::getTimer()->start();
-		$result = static::instance()->increment(static::$_prefix.\solutions::getStoragePrefix().$name, $value);
+		$result = static::instance()->increment(md5(static::$_prefix.\solutions::getStoragePrefix().$name, $value));
 		static::getTimer()->stop();
 
 		return $result;
@@ -94,7 +94,7 @@ abstract class cache implements kvStorage {
 		if (is_null($name)) return null;
 		if ( static::$local_cache ) static::$local[$name] = false;
 		static::getTimer()->start();
-		$result = static::instance()->decrement(static::$_prefix.\solutions::getStoragePrefix().$name);
+		$result = static::instance()->decrement(md5(static::$_prefix.\solutions::getStoragePrefix().$name));
 		static::getTimer()->stop();
 
 		return $result;
@@ -106,7 +106,7 @@ abstract class cache implements kvStorage {
 		if (is_null($name)) return null;
 		if ( static::$local_cache ) static::$local[$name] = false;
 		static::getTimer()->start();
-		$result = static::instance()->delete(static::$_prefix.\solutions::getStoragePrefix().$name);
+		$result = static::instance()->delete(md5(static::$_prefix.\solutions::getStoragePrefix().$name));
 		static::getTimer()->stop();
 
 		return $result;
