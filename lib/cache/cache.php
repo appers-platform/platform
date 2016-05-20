@@ -70,7 +70,7 @@ abstract class cache implements kvStorage {
 		if (is_null($name)) return null;
 		if ( static::$local_cache ) static::$local[$name] = false;
 		static::getTimer()->start();
-		$result = static::instance()->set(md5(static::$_prefix.\solutions::getStoragePrefix().$name, $value, $ttl));
+		$result = static::instance()->set(md5(static::$_prefix.\solutions::getStoragePrefix().$name), $value, $ttl);
 		static::getTimer()->stop();
 
 		return $result;
@@ -82,7 +82,7 @@ abstract class cache implements kvStorage {
 		if (is_null($name)) return null;
 		if ( static::$local_cache ) static::$local[$name] = false;
 		static::getTimer()->start();
-		$result = static::instance()->increment(md5(static::$_prefix.\solutions::getStoragePrefix().$name, $value));
+		$result = static::instance()->increment(md5(static::$_prefix.\solutions::getStoragePrefix().$name), $value);
 		static::getTimer()->stop();
 
 		return $result;
