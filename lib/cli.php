@@ -33,15 +33,7 @@ class cli {
 
 		$timer = new timer();
 
-		foreach($arguments as $argument) {
-			if($char_pos = strpos($argument, '=')) {
-				$name = substr($argument, 0, $char_pos);
-				$value = substr($argument, $char_pos + 1);
-				self::$arguments[$name] = $value;
-			} else {
-				self::$arguments[$argument] = '';
-			}
-		}
+		self::$arguments = self::parseArguments(implode(' ', $arguments));
 
 		if(self::hasArgument('toLog')) {
 			self::$output_to_log = true;
@@ -55,6 +47,25 @@ class cli {
 		print "\n";
 		print 'Task "'.$task_name.'" was finished'.". Time: ".$timer." s.\n";
 		if($with_wrap) ob_end_clean();
+	}
+
+	static public function parseArguments($arguments) {
+		$matches = null;
+		preg_match_all("/([^\ ]+)\=((\"([^\"]+)\")|([^\ ]+))/", $arguments, $matches);
+		$params = [];
+		if(!is_array($matches) || empty($matches))
+			return [];
+		if(!is_array($matches[1]) || empty($matches[1]))
+			return [];
+
+		foreach ($matches[1] as $i => $name) {
+			if(substr($matches[2][$i], 0, 1) == '"' and substr($matches[2][$i], strlen($matches[2][$i]) - 1, 1) == '"') {
+				$matches[2][$i] = substr($matches[2][$i], 1, strlen($matches[2][$i]) - 2);
+			}
+			$params[$name] = $matches[2][$i];
+		}
+
+		return $params;
 	}
 
 	static protected function execute($filename) {
