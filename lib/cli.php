@@ -51,21 +51,30 @@ class cli {
 
 	static public function parseArguments($arguments) {
 		$matches = null;
-		preg_match_all("/([^\ ]+)\=((\"([^\"]+)\")|([^\ ]+))/", $arguments, $matches);
-		$params = [];
-		if(!is_array($matches) || empty($matches))
-			return [];
-		if(!is_array($matches[1]) || empty($matches[1]))
-			return [];
+		preg_match_all('/([^=\\s]+="[^"]{0,}")|([^\\s"]+)/', $arguments, $matches);
+		$ars_matches = null;
+		$result = [];
+		foreach ($matches[0] as $argument) {
+			if(!$argument)
+				continue;
 
-		foreach ($matches[1] as $i => $name) {
-			if(substr($matches[2][$i], 0, 1) == '"' and substr($matches[2][$i], strlen($matches[2][$i]) - 1, 1) == '"') {
-				$matches[2][$i] = substr($matches[2][$i], 1, strlen($matches[2][$i]) - 2);
+			if(preg_match('/^([^=]+)=([^"]+)$/', $argument, $ars_matches)) {
+				if(is_array($ars_matches) && count($ars_matches) > 2) {
+					$result[$ars_matches[1]] = $ars_matches[2];
+					continue;
+				}
 			}
-			$params[$name] = $matches[2][$i];
+			if(preg_match('/^([^=]+)="([^"]+)"$/', $argument, $ars_matches)) {
+				if(is_array($ars_matches) && count($ars_matches) > 2) {
+					$result[$ars_matches[1]] = $ars_matches[2];
+					continue;
+				}
+			}
+
+			$result[$argument] = '';
 		}
 
-		return $params;
+		return $result;
 	}
 
 	static protected function execute($filename) {
