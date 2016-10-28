@@ -40,6 +40,8 @@ try {
 	print "(";
 	print $e->getLine();
 	print ")\n";
-	print_r($e->getTraceAsString());
+    if(!config::get('hideExceptionsDetails', false)) {
+        print_r($e->getTraceAsString());
+    }
 	print '</pre>';
 }
